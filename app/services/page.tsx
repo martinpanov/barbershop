@@ -1,5 +1,6 @@
-const metadata = {
-    title: "Services"
+export const metadata = {
+    title: "Services",
+    description: "Page about our services"
 };
 
 export default function ServicesPage() {
