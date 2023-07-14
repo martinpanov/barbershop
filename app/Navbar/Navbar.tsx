@@ -1,21 +1,63 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 export default function Navbar() {
+    const [openMobileNav, setOpenMobileNav] = useState(false);
+
     return (
-        <header className="bg-transparent absolute z-50 w-screen flex items-center justify-between sm:justify-center">
-            <Link href="/">
-                <Image width={192} height={144} src="/logo-2.png" alt="logo" className="w-40 h-28 sm:w-48 sm:h-36 object-cover" />
-            </Link>
+        <header className="absolute z-50 flex items-center justify-between w-full bg-transparent sm:justify-center">
+            {openMobileNav ?
+                <>
+                    <div className="fixed top-0 w-full h-screen bg-black bg-opacity-90">
+                        <div className="flex items-center justify-end w-full h-28">
+                            <FontAwesomeIcon
+                                icon={faX}
+                                className="pr-8 text-4xl sm:hidden"
+                                onClick={() => setOpenMobileNav(false)}
+                            />
+                        </div>
+                        <ul className="flex flex-col items-center justify-center gap-5 text-3xl h-4/5">
+                            <li>
+                                <Link href="/">Home</Link>
+                            </li>
+                            <li>
+                                <Link href="/services">Services</Link>
+                            </li>
+                            <li>
+                                <Link href="/gallery">Gallery</Link>
+                            </li>
+                            <li>
+                                <Link href="/saloons">Saloons</Link>
+                            </li>
+                            <li>
+                                <Link href="/academy">Academy</Link>
+                            </li>
+                            <li>
+                                <Link href="/booking">Booking</Link>
+                            </li>
+                        </ul>
+                    </div>
+                </>
+                :
+                <>
+                    <Link href="/">
+                        <Image width={192} height={144} src="/logo-2.png" alt="logo" className="object-cover w-40 h-28 sm:w-48 sm:h-36" />
+                    </Link>
 
-            <FontAwesomeIcon
-                icon={faBars}
-                className="text-4xl pr-8 sm:hidden"
-            />
+                    <FontAwesomeIcon
+                        icon={faBars}
+                        className="pr-8 text-4xl sm:hidden"
+                        onClick={() => setOpenMobileNav(true)}
+                    />
+                </>
+            }
 
-            <ul className="hidden sm:flex justify-center items-center gap-7 text-lg">
+            <ul className="hidden sm:flex sm:items-center sm:justify-center sm:gap-3 md:gap-7 sm:text-base md:text-lg">
                 <li>
                     <Link href="/">Home</Link>
                 </li>
@@ -31,7 +73,7 @@ export default function Navbar() {
                 <li>
                     <Link href="/academy">Academy</Link>
                 </li>
-                <li className="bg-transparent border border-yellow-600 py-4 px-8 ease-in duration-300 cursor-pointer text-yellow-600 hover:bg-yellow-600 hover:text-slate-100 hover:">
+                <li className="bg-transparent border border-golden md:py-3.5 md:px-7.5 sm:py-2 sm:px-6 ease-in duration-300 cursor-pointer text-golden hover:bg-golden hover:text-slate-100 hover:">
                     <Link href="/booking">Book now</Link>
                 </li>
             </ul>
