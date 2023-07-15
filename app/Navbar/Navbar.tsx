@@ -58,19 +58,19 @@ export default function Navbar() {
             }
 
             <ul className="hidden sm:flex sm:items-center sm:justify-center sm:gap-3 md:gap-7 sm:text-base md:text-lg">
-                <li>
+                <li className="duration-200 ease-in hover:text-golden">
                     <Link href="/">Home</Link>
                 </li>
-                <li>
+                <li className="duration-200 ease-in hover:text-golden">
                     <Link href="/services">Services</Link>
                 </li>
-                <li>
+                <li className="duration-200 ease-in hover:text-golden">
                     <Link href="/gallery">Gallery</Link>
                 </li>
-                <li>
+                <li className="duration-200 ease-in hover:text-golden">
                     <Link href="/saloons">Saloons</Link>
                 </li>
-                <li>
+                <li className="duration-200 ease-in hover:text-golden">
                     <Link href="/academy">Academy</Link>
                 </li>
                 <li className="bg-transparent border border-golden md:py-3.5 md:px-7.5 sm:py-2 sm:px-6 ease-in duration-300 cursor-pointer text-golden hover:bg-golden hover:text-slate-100 hover:">
