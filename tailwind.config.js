@@ -16,6 +16,10 @@ module.exports = {
         'golden': '#b59a55',
         'brown': '#100d0d'
       },
+      fontFamily: {
+        'roboto': 'var(--font-roboto)',
+        'playfair': 'var(--font-playfair)'
+      }
     },
   },
   plugins: [],

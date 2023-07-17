@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Playfair_Display } from 'next/font/google';
+import { Playfair_Display, Roboto } from 'next/font/google';
 import Navbar from './Navbar/Navbar';
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
@@ -9,7 +9,14 @@ config.autoAddCss = false;
 const playFairDisplay = Playfair_Display({
   weight: ['400', '500', '700'],
   subsets: ['latin'],
-  style: ['normal', 'italic']
+  style: ['normal', 'italic'],
+  variable: '--font-playfair'
+});
+
+const roboto = Roboto({
+  weight: ['400', '500', '700'],
+  subsets: ['latin'],
+  variable: '--font-roboto'
 });
 
 export const metadata: Metadata = {
@@ -24,7 +31,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={playFairDisplay.className}>
+      <body className={`${playFairDisplay.variable} ${roboto.variable}`}>
         <Navbar />
         <main>
           {children}
