@@ -4,6 +4,7 @@ import { Playfair_Display, Roboto } from 'next/font/google';
 import Navbar from './Navbar/Navbar';
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
+import Footer from './Footer/Footer';
 config.autoAddCss = false;
 
 const playFairDisplay = Playfair_Display({
@@ -36,6 +37,7 @@ export default function RootLayout({
         <main>
           {children}
         </main>
+        <Footer />
       </body>
     </html>
   );

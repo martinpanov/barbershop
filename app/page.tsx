@@ -115,7 +115,7 @@ export default function Home() {
                 <Image quality={100} fill={true} src="/barber-accessories.jpg" alt="barber-accessories" className="object-cover" />
                 <div className="absolute z-10 flex flex-col items-center gap-4 text-center">
                     <h2 className="text-4xl italic font-bold text-center sm:text-5xl font-playfair">Unleash Your Best Look</h2>
-                    <p className="text-lg">Expert grooming for your unique style. Redefine yourself with our skilled barbers. Elevate your presence.</p>
+                    <p className="text-lg font-roboto">Expert grooming for your unique style. Redefine yourself with our skilled barbers. Elevate your presence.</p>
                     <Link href='booking' className="inline-block px-10 py-5 mx-auto my-0 text-lg font-bold bg-transparent border-2 border-white lg:hover:bg-white lg:duration-200 lg:ease-in lg:hover:text-golden">Book an appointment</Link>
                 </div>
             </section>
