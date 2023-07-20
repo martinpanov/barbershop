@@ -6,6 +6,44 @@ import { useState } from "react";
 
 export default function BookingForm() {
     const [step, setStep] = useState(1);
+    const [isCompletedStep, setIsCompletedStep] = useState<number[]>([]);
+    const [location, setLocation] = useState("");
+    const [barber, setBarber] = useState("");
+
+    const stepHandler = (type: string) => {
+        if (type === "+") {
+            if (step === 1 && location === "") {
+                return;
+            }
+
+            if (step === 2 && barber === "") {
+                return;
+            }
+
+            setIsCompletedStep(prevState => [...prevState, step]);
+
+            setStep(prevState => prevState + 1);
+        } else if (type === "-") {
+            setIsCompletedStep(prevState =>
+                [...prevState.filter(e => e + 1 !== step)]
+            );
+
+            setStep(prevState => prevState - 1);
+
+
+            if (step - 1 === 1) {
+                setBarber("");
+            }
+        }
+    };
+
+    const locationHandler = (location: string) => {
+        setLocation(location);
+    };
+
+    const barberHandler = (barber: string) => {
+        setBarber(barber);
+    };
 
     return (
         <div className="w-11/12 md:max-w-5xl">
@@ -23,24 +61,24 @@ export default function BookingForm() {
                 </ul>
 
                 <ul className="flex gap-3 lg:hidden">
-                    <li className={`px-3 py-1 bg-green-400 rounded-full ${step === 1 ? "bg-green-400" : ""} ${step - 1 === 1 ? "bg-purple-950" : ""}`}>1</li>
-                    <li className={`px-3 py-1 bg-green-400 rounded-full ${step === 2 ? "bg-green-400" : ""} ${step - 1 === 2 ? "bg-purple-950" : ""}`}>2</li>
-                    <li className={`px-3 py-1 bg-green-400 rounded-full ${step === 3 ? "bg-green-400" : ""} ${step - 1 === 3 ? "bg-purple-950" : ""}`}>3</li>
-                    <li className={`px-3 py-1 bg-green-400 rounded-full ${step === 4 ? "bg-green-400" : ""} ${step - 1 === 4 ? "bg-purple-950" : ""}`}>4</li>
+                    <li className={`px-3 py-1 rounded-full ${!isCompletedStep.includes(1) && step !== 1 ? "bg-neutral-600" : ""} ${step === 1 ? "bg-green-400" : ""} ${isCompletedStep.includes(1) ? "bg-purple-950" : ""}`}>1</li>
+                    <li className={`px-3 py-1 rounded-full ${!isCompletedStep.includes(2) && step !== 2 ? "bg-neutral-600" : ""} ${step === 2 ? "bg-green-400" : ""} ${isCompletedStep.includes(2) ? "bg-purple-950" : ""}`}>2</li>
+                    <li className={`px-3 py-1 rounded-full ${!isCompletedStep.includes(3) && step !== 3 ? "bg-neutral-600" : ""} ${step === 3 ? "bg-green-400" : ""} ${isCompletedStep.includes(3) ? "bg-purple-950" : ""}`}>3</li>
+                    <li className={`px-3 py-1 rounded-full ${!isCompletedStep.includes(4) && step !== 4 ? "bg-neutral-600" : ""} ${step === 4 ? "bg-green-400" : ""} ${isCompletedStep.includes(4) ? "bg-purple-950" : ""}`}>4</li>
                 </ul>
             </div>
             <div className="bg-slate-100">
                 {step === 1 &&
                     <>
-                        <span className="block p-5 text-lg text-black border-b border-opacity-10 border-neutral-950">Choose location</span>
+                        <span className="block p-5 text-lg text-black border-b border-opacity-10 border-neutral-950">Choose Location</span>
                         <div className="flex flex-col items-center p-5">
-                            <div className="flex items-center w-full gap-3 p-5 mb-5 bg-white shadow-xl">
+                            <div onClick={() => locationHandler("2100 PALOS VERDES DR LOMITA CA")} className={`flex items-center w-full gap-3 p-5 mb-5 lg:cursor-pointer bg-white shadow-xl ${location === "2100 PALOS VERDES DR LOMITA CA" ? "border-green-700 border" : ""}`}>
                                 <div className="overflow-hidden rounded-full w-14 h-14 sm:w-20 sm:h-20">
                                     <Image width={360} height={360} src="/barbershop-outside.jpg" alt="barbershop" className="object-cover w-full h-full" />
                                 </div>
                                 <span className="text-sm text-black sm:text-base">2100 PALOS VERDES DR LOMITA CA</span>
                             </div>
-                            <div className="flex items-center w-full gap-3 p-5 mb-5 bg-white shadow-xl">
+                            <div onClick={() => locationHandler("9500 SAINT ANDREWS DR SANTEE CA")} className={`flex items-center w-full gap-3 p-5 mb-5 lg:cursor-pointer bg-white shadow-xl ${location === "9500 SAINT ANDREWS DR SANTEE CA" ? "border-green-700 border" : ""}`}>
                                 <div className="overflow-hidden rounded-full w-14 h-14 sm:w-20 sm:h-20">
                                     <Image width={360} height={360} src="/barbershop-outside.jpg" alt="barbershop" className="object-cover w-full h-full" />
                                 </div>
@@ -49,9 +87,37 @@ export default function BookingForm() {
                         </div>
                     </>
                 }
+
+                {step === 2 &&
+                    <>
+                        <span className="block p-5 text-lg text-black border-b border-opacity-10 border-neutral-950">Choose Barber</span>
+                        <div className="flex flex-col items-center p-5">
+                            <div onClick={() => barberHandler("Michael")} className={`flex items-center w-full gap-3 p-5 mb-5 lg:cursor-pointer bg-white shadow-xl ${barber === "Michael" ? "border-green-700 border" : ""}`}>
+                                <div className="overflow-hidden rounded-full w-14 h-14 sm:w-20 sm:h-20">
+                                    <Image width={360} height={360} src="/barber1.jpg" alt="barber" className="object-cover w-full h-full" />
+                                </div>
+                                <span className="text-sm text-black sm:text-base">Michael</span>
+                            </div>
+                            <div onClick={() => barberHandler("Josh")} className={`flex items-center w-full gap-3 p-5 mb-5 lg:cursor-pointer bg-white shadow-xl ${barber === "Josh" ? "border-green-700 border" : ""}`}>
+                                <div className="overflow-hidden rounded-full w-14 h-14 sm:w-20 sm:h-20">
+                                    <Image width={360} height={360} src="/barber2.jpg" alt="barber" className="object-cover w-full h-full" />
+                                </div>
+                                <span className="text-sm text-black sm:text-base">Josh</span>
+                            </div>
+                            <div onClick={() => barberHandler("Mitchel")} className={`flex items-center w-full gap-3 p-5 mb-5 lg:cursor-pointer bg-white shadow-xl ${barber === "Mitchel" ? "border-green-700 border" : ""}`}>
+                                <div className="overflow-hidden rounded-full w-14 h-14 sm:w-20 sm:h-20">
+                                    <Image width={360} height={360} src="/barber3.jpg" alt="barber" className="object-cover w-full h-full" />
+                                </div>
+                                <span className="text-sm text-black sm:text-base">Mitchel</span>
+                            </div>
+                        </div>
+                    </>
+                }
+
+
                 <div className="flex items-center justify-center w-full gap-20 p-5 border-t border-opacity-10 border-neutral-950">
-                    <button className="px-6 py-2 text-black duration-200 ease-in bg-transparent border border-black hover:bg-black hover:text-white hover:border-transparent">Back</button>
-                    <button className="px-6 py-3 text-black border bg-golden">Next Step</button>
+                    <button onClick={() => stepHandler("-")} className="px-6 py-2 text-black bg-transparent border border-black lg:duration-200 lg:ease-in lg:hover:bg-black lg:hover:text-white lg:hover:border-transparent">Back</button>
+                    <button onClick={() => stepHandler("+")} className="px-6 py-3 text-black border bg-golden">Next Step</button>
                 </div>
             </div>
         </div>
