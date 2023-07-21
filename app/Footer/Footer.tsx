@@ -7,7 +7,7 @@ export default function Footer() {
     return (
         <footer className="flex items-center justify-center mx-5 my-10">
             <div className="flex flex-col gap-10 md:gap-36 md:items-center md:flex-row">
-                <div className="w-64 h-40 overflow-hidden md:h-96">
+                <div className="w-full h-40 overflow-hidden md:h-96 md:w-64">
                     <Link href="/">
                         <Image width={360} height={360} src='/logo-2.png' alt="logo" className="object-cover w-full h-full" />
                     </Link>
