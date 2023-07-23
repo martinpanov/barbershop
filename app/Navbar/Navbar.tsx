@@ -22,22 +22,22 @@ export default function Navbar() {
                             />
                         </div>
                         <ul className="flex flex-col items-center justify-center gap-5 text-3xl h-4/5">
-                            <li>
+                            <li onClick={() => setOpenMobileNav(false)}>
                                 <Link href="/">Home</Link>
                             </li>
-                            <li>
+                            <li onClick={() => setOpenMobileNav(false)}>
                                 <Link href="/services">Services</Link>
                             </li>
-                            <li>
+                            <li onClick={() => setOpenMobileNav(false)}>
                                 <Link href="/gallery">Gallery</Link>
                             </li>
-                            <li>
+                            <li onClick={() => setOpenMobileNav(false)}>
                                 <Link href="/saloons">Saloons</Link>
                             </li>
-                            <li>
+                            <li onClick={() => setOpenMobileNav(false)}>
                                 <Link href="/academy">Academy</Link>
                             </li>
-                            <li>
+                            <li onClick={() => setOpenMobileNav(false)}>
                                 <Link href="/booking">Booking</Link>
                             </li>
                         </ul>
