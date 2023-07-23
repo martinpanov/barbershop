@@ -49,13 +49,13 @@ export default function Footer() {
                         <FontAwesomeIcon
                             icon={faClock}
                             className="text-lg text-golden"
-                        /> Monday - Saturday: 9:00 - 19:00
+                        /> Monday - Saturday: 10:00 - 19:00
                     </li>
                     <li>
                         <FontAwesomeIcon
                             icon={faClock}
                             className="text-lg text-golden"
-                        /> Sunday: 9:00 - 16:00
+                        /> Sunday: 10:00 - 16:00
                     </li>
                     <li>
                         <FontAwesomeIcon

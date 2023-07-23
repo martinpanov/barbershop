@@ -6,7 +6,7 @@ import { useState } from "react";
 import BookingStepOne from "./BookingStepOne";
 import BookingStepTwo from "./BookingStepTwo";
 import BookingStepThree from "./BookingStepThree";
-import BookingStepFive from "./BookingStepFive";
+import BookingStepFour from "./BookingStepFour";
 
 export default function BookingForm() {
     const [step, setStep] = useState(1);
@@ -14,7 +14,7 @@ export default function BookingForm() {
     const [location, setLocation] = useState("");
     const [barber, setBarber] = useState("");
     const [service, setService] = useState("");
-    const [formData, setFormData] = useState({ firstName: "", lastName: "", phoneNumber: "" });
+    const [formData, setFormData] = useState({ firstName: "", lastName: "", phoneNumber: "", date: "", time: "" });
 
     const stepHandler = (type: string) => {
         if (type === "+") {
@@ -58,7 +58,7 @@ export default function BookingForm() {
     const handleSubmit = () => { };
 
     return (
-        <div className="w-11/12 md:max-w-5xl">
+        <div className="w-11/12 md:max-w-5xl lg:flex">
             <div className="flex flex-col items-center justify-center gap-4 pt-6 pb-8 bg-neutral-800">
                 <div className="h-24 w-44">
                     <Link href="/">
@@ -77,7 +77,6 @@ export default function BookingForm() {
                     <li className={`px-3 py-1 rounded-full ${!isCompletedStep.includes(2) && step !== 2 ? "bg-neutral-600" : ""} ${step === 2 ? "bg-green-400" : ""} ${isCompletedStep.includes(2) ? "bg-purple-950" : ""}`}>2</li>
                     <li className={`px-3 py-1 rounded-full ${!isCompletedStep.includes(3) && step !== 3 ? "bg-neutral-600" : ""} ${step === 3 ? "bg-green-400" : ""} ${isCompletedStep.includes(3) ? "bg-purple-950" : ""}`}>3</li>
                     <li className={`px-3 py-1 rounded-full ${!isCompletedStep.includes(4) && step !== 4 ? "bg-neutral-600" : ""} ${step === 4 ? "bg-green-400" : ""} ${isCompletedStep.includes(4) ? "bg-purple-950" : ""}`}>4</li>
-                    <li className={`px-3 py-1 rounded-full ${!isCompletedStep.includes(5) && step !== 5 ? "bg-neutral-600" : ""} ${step === 5 ? "bg-green-400" : ""} ${isCompletedStep.includes(5) ? "bg-purple-950" : ""}`}>5</li>
                 </ul>
             </div>
             <div className="bg-slate-100">
@@ -93,8 +92,8 @@ export default function BookingForm() {
                     <BookingStepThree setService={setService} service={service} />
                 }
 
-                {step === 5 &&
-                    <BookingStepFive setFormData={setFormData} formData={formData} />
+                {step === 4 &&
+                    <BookingStepFour setFormData={setFormData} formData={formData} />
                 }
 
                 <div className="flex items-center justify-center w-full gap-20 p-5 border-t border-opacity-10 border-neutral-950">
