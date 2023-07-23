@@ -9,7 +9,7 @@ export default function BookingPage() {
                 <Image quality={100} src="/booking-img.jpg" alt="booking" width={1280} height={1920} className="object-cover w-full h-full opacity-50" />
             </section>
 
-            <section className="flex items-center justify-center py-10 bg-white">
+            <section className="flex items-center justify-center py-10 bg-white lg:py-20">
                 <BookingForm />
             </section>
         </>

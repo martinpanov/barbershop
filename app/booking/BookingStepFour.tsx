@@ -21,19 +21,38 @@ export default function BookingStepFour({ setFormData, formData }: StepFourProps
         const day = newDate.getDate().toString().padStart(2, '0');
         const month = (newDate.getMonth() + 1).toString().padStart(2, '0');
         const year = newDate.getFullYear();
+
         return `${month}/${day}/${year}`;
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
 
-        console.log(value);
+        setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
 
-        if (name === "date" && value !== "") {
+        if (name === "date") {
+            const currentDate = new Date().toISOString().split("-");
+            const currentYear = Number(currentDate[0]);
+            const currentMonth = Number(currentDate[1]);
+            const currentDay = Number(currentDate[2].split("T")[0]);
+
+            const inputDate = value.split("-");
+            const inputYear = Number(inputDate[0]);
+            const inputMonth = Number(inputDate[1]);
+            const inputDay = Number(inputDate[2]);
+
+            // Doing this to check if the input date is older than today's date
+
+            if (value === "") return setIsDatePicked(false);
+
+            if (currentYear > inputYear) return setIsDatePicked(false);
+
+            if (currentYear === inputYear && currentMonth > inputMonth) return setIsDatePicked(false);
+
+            if (currentMonth === inputMonth && currentDay > inputDay) return setIsDatePicked(false);
+
             setIsDatePicked(true);
         }
-
-        setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
     };
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -53,7 +72,7 @@ export default function BookingStepFour({ setFormData, formData }: StepFourProps
                 <input className="p-1 mb-3 text-lg" type="text" id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
                 <label htmlFor="date">Date:</label>
                 <input className="p-1 mb-3 text-lg" type="date" id="date" name="date" min={new Date().toISOString().split("T")[0]} value={formData.date} onChange={handleChange} />
-                {isDatePicked &&
+                {isDatePicked ?
                     <>
                         <div className="bg-white">
                             <span className="block p-5 text-lg text-center text-black border-b border-opacity-10 border-neutral-950">{formatDate(formData.date)}</span>
@@ -70,6 +89,7 @@ export default function BookingStepFour({ setFormData, formData }: StepFourProps
                             </div>
                         </div>
                     </>
+                    : null
                 }
             </form>
         </>
