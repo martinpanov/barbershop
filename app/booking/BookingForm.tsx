@@ -58,7 +58,7 @@ export default function BookingForm() {
     const handleSubmit = () => { };
 
     return (
-        <div className="w-11/12 md:max-w-5xl lg:flex">
+        <div className="w-11/12 md:max-w-5xl lg:flex font-roboto">
             <div className="flex flex-col items-center justify-center gap-4 pt-6 pb-8 bg-neutral-800 lg:justify-start lg:px-5 lg:gap-10">
                 <div className="h-24 w-44">
                     <Link href="/">
