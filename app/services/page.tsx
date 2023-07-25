@@ -8,19 +8,19 @@ export const metadata = {
 
 export default function ServicesPage() {
     const serviceArticles = [{
-        imageName: 'scissors',
+        imageName: 'scissors-golden',
         service: 'Haircuts',
         serviceDetails: 'Experience the art of personalized haircuts with our skilled barbers. We carefully craft haircuts tailored to your style, ensuring you leave feeling confident and looking impeccable. Unleash your best look today!'
     }, {
-        imageName: 'razor',
+        imageName: 'razor-golden',
         service: 'Shaving',
         serviceDetails: 'Indulge in the ultimate relaxation with our expertly tailored and sophisticated shaving services. Let our skilled barbers pamper you with precision and the finest grooming experience, leaving you rejuvenated and refined.'
     }, {
-        imageName: 'massage',
+        imageName: 'massage-golden',
         service: 'Massages',
         serviceDetails: 'Indulge in the epitome of relaxation with our revitalizing barber massages. Experience the skilled hands of our barbers as they soothe and rejuvenate your body and mind, leaving you refreshed and invigorated.'
     }, {
-        imageName: 'beard',
+        imageName: 'beard-golden',
         service: 'Beard Grooming',
         serviceDetails: 'Discover the art of beard refinement through our meticulous grooming expertise. Our skilled barbers shape, trim, and nourish your beard, creating a polished and stylish look that complements your individuality perfectly.'
     }];
@@ -66,7 +66,7 @@ export default function ServicesPage() {
 
             <section className="flex justify-center px-10 pt-10 pb-32 xl:px-0">
                 <div className="flex flex-col gap-11 lg:max-w-7xl">
-                    <h2 className="col-span-4 mb-10 text-4xl italic font-bold text-left font-playfair"><span className="underline underline-offset-8 decoration-1">Our servi</span>ces</h2>
+                    <h2 className="mb-10 text-4xl italic font-bold text-left font-playfair"><span className="underline underline-offset-8 decoration-1">Our servi</span>ces</h2>
                     {serviceArticles.map((article, index) => {
                         return (
                             <article key={index} className="flex flex-col items-center gap-5 px-3 py-6 border shadow-xl lg:w-full lg:max-w-6xl md:flex-row xl:ease-in xl:hover:border-white xl:duration-300">
@@ -78,6 +78,33 @@ export default function ServicesPage() {
                             </article>
                         );
                     })}
+                </div>
+            </section>
+
+            <section className="py-10 lg:px-10">
+                <h2 className="mb-20 text-4xl italic font-bold text-center font-playfair"><span className="underline underline-offset-8 decoration-1">Our barb</span>ers</h2>
+                <div className="flex flex-col items-center gap-24 lg:justify-center lg:flex-row font-roboto">
+                    <article className="relative w-80 h-96">
+                        <Image width={360} height={360} src="/barber1.jpg" alt="barber" className="absolute object-cover w-full h-full" />
+                        <div className="absolute bottom-0 left-0 z-10 flex flex-col items-center w-full bg-[#000000db]">
+                            <h3 className="text-xl font-bold">Michael</h3>
+                            <p>Junior Barber</p>
+                        </div>
+                    </article>
+                    <article className="relative w-80 h-96">
+                        <Image width={360} height={360} src="/barber2.jpg" alt="barber" className="absolute object-cover w-full h-full" />
+                        <div className="absolute bottom-0 left-0 z-10 flex flex-col items-center w-full bg-[#000000db]">
+                            <h3 className="text-xl font-bold">Josh</h3>
+                            <p>Master Barber</p>
+                        </div>
+                    </article>
+                    <article className="relative w-80 h-96">
+                        <Image width={360} height={360} src="/barber3.jpg" alt="barber" className="absolute object-cover w-full h-full" />
+                        <div className="absolute bottom-0 left-0 z-10 flex flex-col items-center w-full bg-[#000000db]">
+                            <h3 className="text-xl font-bold">Mitchel</h3>
+                            <p>Senior Barber</p>
+                        </div>
+                    </article>
                 </div>
             </section>
 
