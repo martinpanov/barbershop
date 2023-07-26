@@ -1,10 +1,18 @@
 "use client";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faX } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Gallery() {
+    const images = ['barber-giving-haircut', 'barber-adds-final-touches-to-a-haircut',
+        'barber-shaves-a-mans-face', 'haircut4', 'barber-inspects-his-work-of-a-clean-haircut',
+        'barber-shaves-side-of-persons-head', 'man-getting-his-beard-trimmed-by-barber',
+        'haircut2', 'haircut1', 'man-with-beard-getting-a-trim', 'haircut3', 'haircut5'];
+
     const [width, setWidth] = useState(window.innerWidth);
+    const [selectedImage, setSelectedImage] = useState('');
     const breakpointMidScreen = 768;
     const breakpointLargeScreen = 1024;
 
@@ -22,38 +30,17 @@ export default function Gallery() {
             <div className="grid max-w-6xl grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 ">
                 {width < breakpointMidScreen &&
                     <>
-                        <Image quality={100} src="/barber-giving-haircut.jpg" alt="barber-giving-haircut" width={1280} height={1920} />
-                        <Image quality={100} src="/barber-adds-final-touches-to-a-haircut.jpg" alt="barber-adds-final-touches-to-a-haircut" width={1280} height={1920} />
-                        <Image quality={100} src="/barber-shaves-a-mans-face.jpg" alt="barber-shaves-a-mans-face" width={1280} height={1920} />
-                        <Image quality={100} src="/haircut4.jpg" alt="haircut4" width={1280} height={1920} />
-                        <Image quality={100} src="/barber-inspects-his-work-of-a-clean-haircut.jpg" alt="barber-inspects-his-work-of-a-clean-haircut" width={1280} height={1920} />
-                        <Image quality={100} src="/barber-shaves-side-of-persons-head.jpg" alt="barber-shaves-side-of-persons-head" width={1280} height={1920} />
-                        <Image quality={100} src="/man-getting-his-beard-trimmed-by-barber.jpg" alt="barber-giving-haircut" width={1280} height={1920} />
-                        <Image quality={100} src="/haircut2.jpg" alt="haircut2" width={1280} height={1920} />
-                        <Image quality={100} src="/haircut1.jpg" alt="haircut1" width={1280} height={1920} />
-                        <Image quality={100} src="/man-with-beard-getting-a-trim.jpg" alt="man-with-beard-getting-a-trim" width={1280} height={1920} />
-                        <Image quality={100} src="/haircut3.jpg" alt="haircut3" width={1280} height={1920} />
-                        <Image quality={100} src="/haircut5.jpg" alt="haircut3" width={1280} height={1920} />
+                        {images.map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(`/${image}.jpg`)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
                     </>
                 }
 
                 {(width >= breakpointMidScreen && width <= breakpointLargeScreen) &&
                     <>
                         <div className="grid gap-5">
-                            <Image quality={100} src="/barber-giving-haircut.jpg" alt="barber-giving-haircut" width={1280} height={1920} />
-                            <Image quality={100} src="/barber-adds-final-touches-to-a-haircut.jpg" alt="barber-adds-final-touches-to-a-haircut" width={1280} height={1920} />
-                            <Image quality={100} src="/barber-shaves-a-mans-face.jpg" alt="barber-shaves-a-mans-face" width={1280} height={1920} />
-                            <Image quality={100} src="/haircut4.jpg" alt="haircut4" width={1280} height={1920} />
-                            <Image quality={100} src="/haircut1.jpg" alt="haircut1" width={1280} height={1920} />
-                            <Image quality={100} src="/man-with-beard-getting-a-trim.jpg" alt="man-with-beard-getting-a-trim" width={1280} height={1920} />
+                            {images.slice(0, images.length / 2).map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(`/${image}.jpg`)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
                         </div>
                         <div className="grid gap-5">
-                            <Image quality={100} src="/barber-inspects-his-work-of-a-clean-haircut.jpg" alt="barber-inspects-his-work-of-a-clean-haircut" width={1280} height={1920} />
-                            <Image quality={100} src="/barber-shaves-side-of-persons-head.jpg" alt="barber-shaves-side-of-persons-head" width={1280} height={1920} />
-                            <Image quality={100} src="/man-getting-his-beard-trimmed-by-barber.jpg" alt="barber-giving-haircut" width={1280} height={1920} />
-                            <Image quality={100} src="/haircut2.jpg" alt="haircut2" width={1280} height={1920} />
-                            <Image quality={100} src="/haircut3.jpg" alt="haircut3" width={1280} height={1920} />
-                            <Image quality={100} src="/haircut5.jpg" alt="haircut3" width={1280} height={1920} />
+                            {images.slice(images.length / 2, images.length).map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(`/${image}.jpg`)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
                         </div>
                     </>
                 }
@@ -61,24 +48,29 @@ export default function Gallery() {
                 {width > breakpointLargeScreen &&
                     <>
                         <div className="grid gap-5">
-                            <Image quality={100} src="/barber-giving-haircut.jpg" alt="barber-giving-haircut" width={1280} height={1920} />
-                            <Image quality={100} src="/barber-adds-final-touches-to-a-haircut.jpg" alt="barber-adds-final-touches-to-a-haircut" width={1280} height={1920} />
-                            <Image quality={100} src="/barber-shaves-a-mans-face.jpg" alt="barber-shaves-a-mans-face" width={1280} height={1920} />
-                            <Image quality={100} src="/haircut4.jpg" alt="haircut4" width={1280} height={1920} />
+                            {images.slice(0, images.length / 3).map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(`/${image}.jpg`)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
                         </div>
                         <div className="grid gap-5">
-                            <Image quality={100} src="/barber-inspects-his-work-of-a-clean-haircut.jpg" alt="barber-inspects-his-work-of-a-clean-haircut" width={1280} height={1920} />
-                            <Image quality={100} src="/barber-shaves-side-of-persons-head.jpg" alt="barber-shaves-side-of-persons-head" width={1280} height={1920} />
-                            <Image quality={100} src="/man-getting-his-beard-trimmed-by-barber.jpg" alt="barber-giving-haircut" width={1280} height={1920} />
-                            <Image quality={100} src="/haircut2.jpg" alt="haircut2" width={1280} height={1920} />
+                            {images.slice(images.length / 3, images.length / 1.5).map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(`/${image}.jpg`)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
+
                         </div>
                         <div className="grid gap-5">
-                            <Image quality={100} src="/haircut1.jpg" alt="haircut1" width={1280} height={1920} />
-                            <Image quality={100} src="/man-with-beard-getting-a-trim.jpg" alt="man-with-beard-getting-a-trim" width={1280} height={1920} />
-                            <Image quality={100} src="/haircut3.jpg" alt="haircut3" width={1280} height={1920} />
-                            <Image quality={100} src="/haircut5.jpg" alt="haircut3" width={1280} height={1920} />
+                            {images.slice(images.length / 1.5, images.length).map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(`/${image}.jpg`)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
                         </div>
                     </>
+                }
+
+                {selectedImage &&
+                    <div className="fixed top-0 left-0 z-50 flex flex-col items-center justify-between w-screen h-screen bg-black bg-opacity-90">
+                        <div className="flex items-center justify-end w-full h-28">
+                            <FontAwesomeIcon
+                                icon={faX}
+                                className="pr-8 text-3xl"
+                                onClick={() => setSelectedImage('')}
+                            />
+                        </div>
+                        <Image quality={100} src={selectedImage} alt={selectedImage} width={1280} height={1920} className="w-full max-w-lg" />
+                    </div>
                 }
             </div>
         </section>
