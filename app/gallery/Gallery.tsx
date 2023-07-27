@@ -1,7 +1,7 @@
 "use client";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX } from "@fortawesome/free-solid-svg-icons";
+import { faX, faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -25,22 +25,39 @@ export default function Gallery() {
     }, []);
 
 
+    const handlePreviousImage = () => {
+        const currentImageIndex = images.indexOf(selectedImage);
+
+        if (currentImageIndex - 1 < 0) return;
+
+        setSelectedImage(images[currentImageIndex - 1]);
+    };
+
+    const handleNextImage = () => {
+        const currentImageIndex = images.indexOf(selectedImage);
+
+        if (currentImageIndex === images.length - 1) return;
+
+        setSelectedImage(images[currentImageIndex + 1]);
+    };
+
+
     return (
         <section className="flex justify-center px-10 pt-20 pb-10 xl:px-0">
             <div className="grid max-w-6xl grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 ">
                 {width < breakpointMidScreen &&
                     <>
-                        {images.map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(`/${image}.jpg`)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
+                        {images.map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(image)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
                     </>
                 }
 
                 {(width >= breakpointMidScreen && width <= breakpointLargeScreen) &&
                     <>
                         <div className="grid gap-5">
-                            {images.slice(0, images.length / 2).map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(`/${image}.jpg`)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
+                            {images.slice(0, images.length / 2).map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(image)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
                         </div>
                         <div className="grid gap-5">
-                            {images.slice(images.length / 2, images.length).map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(`/${image}.jpg`)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
+                            {images.slice(images.length / 2, images.length).map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(image)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
                         </div>
                     </>
                 }
@@ -48,28 +65,41 @@ export default function Gallery() {
                 {width > breakpointLargeScreen &&
                     <>
                         <div className="grid gap-5">
-                            {images.slice(0, images.length / 3).map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(`/${image}.jpg`)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
+                            {images.slice(0, images.length / 3).map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(image)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
                         </div>
                         <div className="grid gap-5">
-                            {images.slice(images.length / 3, images.length / 1.5).map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(`/${image}.jpg`)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
+                            {images.slice(images.length / 3, images.length / 1.5).map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(image)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
 
                         </div>
                         <div className="grid gap-5">
-                            {images.slice(images.length / 1.5, images.length).map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(`/${image}.jpg`)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
+                            {images.slice(images.length / 1.5, images.length).map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(image)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
                         </div>
                     </>
                 }
 
                 {selectedImage &&
-                    <div className="fixed top-0 left-0 z-50 flex flex-col items-center justify-between w-screen h-screen bg-black bg-opacity-90">
+                    <div className="fixed top-0 left-0 z-50 flex flex-col items-center w-full h-screen bg-black bg-opacity-90">
                         <div className="flex items-center justify-end w-full h-28">
                             <FontAwesomeIcon
                                 icon={faX}
-                                className="pr-8 text-3xl"
+                                className="mr-8 text-3xl cursor-pointer"
                                 onClick={() => setSelectedImage('')}
                             />
                         </div>
-                        <Image quality={100} src={selectedImage} alt={selectedImage} width={1280} height={1920} className="w-full max-w-lg" />
+
+                        <div className="flex items-center justify-center w-full h-full gap-10 lg:gap-52 xl:gap-80">
+                            <FontAwesomeIcon
+                                icon={faArrowLeft}
+                                className="text-4xl cursor-pointer"
+                                onClick={handlePreviousImage}
+                            />
+                            <Image quality={100} src={`/${selectedImage}.jpg`} alt={selectedImage} width={1280} height={1920} className="w-60 sm:w-96 md:w-full md:max-w-md lg:max-w-lg" />
+                            <FontAwesomeIcon
+                                icon={faArrowRight}
+                                className="text-4xl cursor-pointer"
+                                onClick={handleNextImage}
+                            />
+                        </div>
                     </div>
                 }
             </div>
