@@ -3,7 +3,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX, faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
-import { useState, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function Gallery() {
     const images = ['barber-giving-haircut', 'barber-adds-final-touches-to-a-haircut',
@@ -16,7 +16,7 @@ export default function Gallery() {
     const breakpointMidScreen = 768;
     const breakpointLargeScreen = 1024;
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const handleWindowResize = () => setWidth(window.innerWidth);
         window.addEventListener("resize", handleWindowResize);
         window.addEventListener("keydown", handleKeyDown);
@@ -90,21 +90,24 @@ export default function Gallery() {
 
                 {selectedImage &&
                     <div className="fixed top-0 left-0 z-50 flex flex-col items-center w-full h-screen bg-black bg-opacity-90">
-                        <div className="flex items-center justify-end w-full h-28">
+                        <div className="flex items-center justify-between w-full p-6">
+                            <span className="flex-1 ml-10 text-2xl text-center md:ml-8">
+                                {images.indexOf(selectedImage) + 1}/{images.length}
+                            </span>
                             <FontAwesomeIcon
                                 icon={faX}
-                                className="mr-8 text-3xl cursor-pointer"
+                                className="ml-auto text-3xl cursor-pointer"
                                 onClick={() => setSelectedImage('')}
                             />
                         </div>
 
-                        <div className="flex items-center justify-center w-full h-full gap-10 lg:gap-52 xl:gap-80">
+                        <div className="flex items-center justify-center w-full h-full gap-6 lg:gap-52 xl:gap-80">
                             <FontAwesomeIcon
                                 icon={faArrowLeft}
                                 className="text-4xl cursor-pointer"
                                 onClick={handlePreviousImage}
                             />
-                            <Image quality={100} src={`/${selectedImage}.jpg`} alt={selectedImage} width={1280} height={1920} className="w-60 sm:w-96 md:w-full md:max-w-md lg:max-w-lg" />
+                            <Image quality={100} src={`/${selectedImage}.jpg`} alt={selectedImage} width={1280} height={1920} className="object-contain h-full md:w-full w-60 sm:w-96 lg:max-w-lg md:max-w-md" />
                             <FontAwesomeIcon
                                 icon={faArrowRight}
                                 className="text-4xl cursor-pointer"
