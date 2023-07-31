@@ -3,7 +3,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX, faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState, useLayoutEffect } from "react";
 
 export default function Gallery() {
     const images = ['barber-giving-haircut', 'barber-adds-final-touches-to-a-haircut',
@@ -16,31 +16,42 @@ export default function Gallery() {
     const breakpointMidScreen = 768;
     const breakpointLargeScreen = 1024;
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const handleWindowResize = () => setWidth(window.innerWidth);
         window.addEventListener("resize", handleWindowResize);
+        window.addEventListener("keydown", handleKeyDown);
 
         // Return a function from the effect that removes the event listener
-        return () => window.removeEventListener("resize", handleWindowResize);
+        return () => {
+            window.removeEventListener("resize", handleWindowResize);
+            window.removeEventListener("keydown", handleKeyDown);
+        };
     }, []);
 
 
     const handlePreviousImage = () => {
-        const currentImageIndex = images.indexOf(selectedImage);
-
-        if (currentImageIndex - 1 < 0) return;
-
-        setSelectedImage(images[currentImageIndex - 1]);
+        setSelectedImage((prevSelectedImage) => {
+            const prevSelectedImageIndex = images.indexOf(prevSelectedImage);
+            if (prevSelectedImageIndex - 1 < 0) return prevSelectedImage;
+            return images[prevSelectedImageIndex - 1];
+        });
     };
 
     const handleNextImage = () => {
-        const currentImageIndex = images.indexOf(selectedImage);
-
-        if (currentImageIndex === images.length - 1) return;
-
-        setSelectedImage(images[currentImageIndex + 1]);
+        setSelectedImage((prevSelectedImage) => {
+            const prevSelectedImageIndex = images.indexOf(prevSelectedImage);
+            if (prevSelectedImageIndex === images.length - 1) return prevSelectedImage;
+            return images[prevSelectedImageIndex + 1];
+        });
     };
 
+    const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key === "ArrowRight") {
+            handleNextImage();
+        } else if (event.key === "ArrowLeft") {
+            handlePreviousImage();
+        }
+    };
 
     return (
         <section className="flex justify-center px-10 pt-20 pb-10 xl:px-0">
