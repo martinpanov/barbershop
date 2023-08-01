@@ -8,7 +8,21 @@ datasource db {
 }
 
 model Barber {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id     String   @id @default(auto()) @map("_id") @db.ObjectId
+  name   String
+  Client Client[]
 
   @@map("barbers")
+}
+
+model Client {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  barberId        String @db.ObjectId
+  barber          Barber @relation(fields: [barberId], references: [id])
+  location        String
+  service         String
+  firstName       String
+  lastName        String
+  phoneNumber     String
+  appointmentTime String
 }
