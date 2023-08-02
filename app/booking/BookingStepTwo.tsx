@@ -1,13 +1,13 @@
 import Image from "next/image";
 
 interface StepTwoProps {
-    barber: string;
-    setBarber: React.Dispatch<React.SetStateAction<string>>;
+    barberName: string;
+    setBarberName: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function BookingStepTwo({ setBarber, barber }: StepTwoProps) {
-    const barberHandler = (barber: string) => {
-        setBarber(barber);
+export default function BookingStepTwo({ setBarberName: setBarberName, barberName: barber }: StepTwoProps) {
+    const barberHandler = (barberName: string) => {
+        setBarberName(barberName);
     };
 
     return (

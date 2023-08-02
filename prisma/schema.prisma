@@ -19,6 +19,7 @@ model Appointment {
   id          String @id @default(auto()) @map("_id") @db.ObjectId
   barberId    String @db.ObjectId
   barber      Barber @relation(fields: [barberId], references: [id])
+  barberName  String
   location    String
   service     String
   firstName   String

@@ -12,7 +12,7 @@ export default function BookingForm() {
     const [step, setStep] = useState(1);
     const [isCompletedStep, setIsCompletedStep] = useState<number[]>([]);
     const [location, setLocation] = useState("");
-    const [barber, setBarber] = useState("");
+    const [barberName, setBarberName] = useState("");
     const [service, setService] = useState("");
     const [formData, setFormData] = useState({ firstName: "", lastName: "", phoneNumber: "", date: "", time: "" });
 
@@ -22,7 +22,7 @@ export default function BookingForm() {
                 return;
             }
 
-            if (step === 2 && barber === "") {
+            if (step === 2 && barberName === "") {
                 return;
             }
 
@@ -50,7 +50,7 @@ export default function BookingForm() {
 
 
             if (step - 1 === 1) {
-                setBarber("");
+                setBarberName("");
             }
         }
     };
@@ -103,7 +103,7 @@ export default function BookingForm() {
                 }
 
                 {step === 2 &&
-                    <BookingStepTwo setBarber={setBarber} barber={barber} />
+                    <BookingStepTwo setBarberName={setBarberName} barberName={barberName} />
                 }
 
                 {step === 3 &&
