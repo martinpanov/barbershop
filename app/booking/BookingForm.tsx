@@ -55,7 +55,28 @@ export default function BookingForm() {
         }
     };
 
-    const handleSubmit = () => { };
+    const handleSubmit = async () => {
+        try {
+            const response = await fetch('/api/appointment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ location, barberName, service, ...formData })
+            });
+
+            if (!response.ok) {
+                throw new Error('Something went wrong, please try again later');
+            }
+
+            setLocation('');
+            setBarberName('');
+            setService('');
+            setFormData({ firstName: "", lastName: "", phoneNumber: "", date: "", time: "" });
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
 
     return (
         <div className="w-11/12 md:max-w-5xl lg:flex font-roboto">
@@ -116,7 +137,7 @@ export default function BookingForm() {
 
                 <div className="flex items-center justify-center w-full gap-20 p-5 border-t border-opacity-10 border-neutral-950">
                     <button onClick={() => stepHandler("-")} className="px-6 py-2 text-black bg-transparent border border-black lg:duration-200 lg:ease-in lg:hover:bg-black lg:hover:text-white lg:hover:border-transparent">Back</button>
-                    {step === 5 ?
+                    {step === 4 ?
                         <button onClick={() => handleSubmit()} className="px-6 py-3 text-black border bg-golden">Submit</button> :
                         <button onClick={() => stepHandler("+")} className="px-6 py-3 text-black border bg-golden">Next Step</button>
                     }
