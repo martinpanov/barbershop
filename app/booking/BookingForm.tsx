@@ -7,42 +7,26 @@ import BookingStepOne from "./BookingStepOne";
 import BookingStepTwo from "./BookingStepTwo";
 import BookingStepThree from "./BookingStepThree";
 import BookingStepFour from "./BookingStepFour";
+import { barberSchema, formSchema, locationSchema, serviceSchema } from "../Validations/FormValidation";
 
 export default function BookingForm() {
     const [step, setStep] = useState(1);
-    const [isCompletedStep, setIsCompletedStep] = useState<number[]>([]);
+    const [completedSteps, setCompletedSteps] = useState<number[]>([]);
     const [location, setLocation] = useState("");
     const [barberName, setBarberName] = useState("");
     const [service, setService] = useState("");
     const [formData, setFormData] = useState({ firstName: "", lastName: "", phoneNumber: "", date: "", time: "" });
 
-    const stepHandler = (type: string) => {
+    const stepHandler = async (type: string) => {
         if (type === "+") {
-            if (step === 1 && location === "") {
-                return;
-            }
-
-            if (step === 2 && barberName === "") {
-                return;
-            }
-
-            if (step === 3 && service === "") {
-                return;
-            }
-
-            if (step === 5 && (formData.firstName === "" || formData.lastName === "" || formData.phoneNumber === "")) {
-                return;
-            }
-
-            setIsCompletedStep(prevState => [...prevState, step]);
-
+            setCompletedSteps(prevState => [...prevState, step]);
             setStep(prevState => prevState + 1);
         } else if (type === "-") {
             if (step - 1 === 0) {
                 return;
             }
 
-            setIsCompletedStep(prevState =>
+            setCompletedSteps(prevState =>
                 [...prevState.filter(e => e + 1 !== step)]
             );
 
@@ -57,6 +41,8 @@ export default function BookingForm() {
 
     const handleSubmit = async () => {
         try {
+            const isValid = await formSchema.isValid(formData);
+
             const response = await fetch('/api/appointment', {
                 method: 'POST',
                 headers: {
@@ -88,23 +74,23 @@ export default function BookingForm() {
                 </div>
                 <ul className="hidden lg:flex lg:flex-col lg:gap-7">
                     <li>
-                        <span className={`mr-2 px-2.5 py-1 rounded-full ${!isCompletedStep.includes(1) && step !== 1 ? "bg-neutral-600" : ""} ${step === 1 ? "bg-green-400" : ""} ${isCompletedStep.includes(1) ? "bg-purple-950" : ""}`}>1</span>
+                        <span className={`mr-2 px-2.5 py-1 rounded-full ${!completedSteps.includes(1) && step !== 1 ? "bg-neutral-600" : ""} ${step === 1 ? "bg-green-400" : ""} ${completedSteps.includes(1) ? "bg-purple-950" : ""}`}>1</span>
                         <span>Location</span>
                     </li>
                     <li>
-                        <span className={`mr-2 px-2.5 py-1 rounded-full ${!isCompletedStep.includes(2) && step !== 2 ? "bg-neutral-600" : ""} ${step === 2 ? "bg-green-400" : ""} ${isCompletedStep.includes(2) ? "bg-purple-950" : ""}`}>2</span>
+                        <span className={`mr-2 px-2.5 py-1 rounded-full ${!completedSteps.includes(2) && step !== 2 ? "bg-neutral-600" : ""} ${step === 2 ? "bg-green-400" : ""} ${completedSteps.includes(2) ? "bg-purple-950" : ""}`}>2</span>
                         <span>
                             Barber
                         </span>
                     </li>
                     <li>
-                        <span className={`mr-2 px-2.5 py-1 rounded-full ${!isCompletedStep.includes(3) && step !== 3 ? "bg-neutral-600" : ""} ${step === 3 ? "bg-green-400" : ""} ${isCompletedStep.includes(3) ? "bg-purple-950" : ""}`}>3</span>
+                        <span className={`mr-2 px-2.5 py-1 rounded-full ${!completedSteps.includes(3) && step !== 3 ? "bg-neutral-600" : ""} ${step === 3 ? "bg-green-400" : ""} ${completedSteps.includes(3) ? "bg-purple-950" : ""}`}>3</span>
                         <span>
                             Services
                         </span>
                     </li>
                     <li>
-                        <span className={`mr-2 px-2.5 py-1 rounded-full ${!isCompletedStep.includes(4) && step !== 4 ? "bg-neutral-600" : ""} ${step === 4 ? "bg-green-400" : ""} ${isCompletedStep.includes(4) ? "bg-purple-950" : ""}`}>4</span>
+                        <span className={`mr-2 px-2.5 py-1 rounded-full ${!completedSteps.includes(4) && step !== 4 ? "bg-neutral-600" : ""} ${step === 4 ? "bg-green-400" : ""} ${completedSteps.includes(4) ? "bg-purple-950" : ""}`}>4</span>
                         <span>
                             Date And Time
                         </span>
@@ -112,36 +98,35 @@ export default function BookingForm() {
                 </ul>
 
                 <ul className="flex gap-3 lg:hidden">
-                    <li className={`px-3 py-1 rounded-full ${!isCompletedStep.includes(1) && step !== 1 ? "bg-neutral-600" : ""} ${step === 1 ? "bg-green-400" : ""} ${isCompletedStep.includes(1) ? "bg-purple-950" : ""}`}>1</li>
-                    <li className={`px-3 py-1 rounded-full ${!isCompletedStep.includes(2) && step !== 2 ? "bg-neutral-600" : ""} ${step === 2 ? "bg-green-400" : ""} ${isCompletedStep.includes(2) ? "bg-purple-950" : ""}`}>2</li>
-                    <li className={`px-3 py-1 rounded-full ${!isCompletedStep.includes(3) && step !== 3 ? "bg-neutral-600" : ""} ${step === 3 ? "bg-green-400" : ""} ${isCompletedStep.includes(3) ? "bg-purple-950" : ""}`}>3</li>
-                    <li className={`px-3 py-1 rounded-full ${!isCompletedStep.includes(4) && step !== 4 ? "bg-neutral-600" : ""} ${step === 4 ? "bg-green-400" : ""} ${isCompletedStep.includes(4) ? "bg-purple-950" : ""}`}>4</li>
+                    <li className={`px-3 py-1 rounded-full ${!completedSteps.includes(1) && step !== 1 ? "bg-neutral-600" : ""} ${step === 1 ? "bg-green-400" : ""} ${completedSteps.includes(1) ? "bg-purple-950" : ""}`}>1</li>
+                    <li className={`px-3 py-1 rounded-full ${!completedSteps.includes(2) && step !== 2 ? "bg-neutral-600" : ""} ${step === 2 ? "bg-green-400" : ""} ${completedSteps.includes(2) ? "bg-purple-950" : ""}`}>2</li>
+                    <li className={`px-3 py-1 rounded-full ${!completedSteps.includes(3) && step !== 3 ? "bg-neutral-600" : ""} ${step === 3 ? "bg-green-400" : ""} ${completedSteps.includes(3) ? "bg-purple-950" : ""}`}>3</li>
+                    <li className={`px-3 py-1 rounded-full ${!completedSteps.includes(4) && step !== 4 ? "bg-neutral-600" : ""} ${step === 4 ? "bg-green-400" : ""} ${completedSteps.includes(4) ? "bg-purple-950" : ""}`}>4</li>
                 </ul>
             </div>
             <div className="w-full bg-slate-100">
                 {step === 1 &&
-                    <BookingStepOne setLocation={setLocation} location={location} />
+                    <BookingStepOne location={location} setLocation={setLocation} stepHandler={stepHandler} />
                 }
 
                 {step === 2 &&
-                    <BookingStepTwo setBarberName={setBarberName} barberName={barberName} />
+                    <BookingStepTwo barberName={barberName} setBarberName={setBarberName} stepHandler={stepHandler} />
                 }
 
                 {step === 3 &&
-                    <BookingStepThree setService={setService} service={service} />
+                    <BookingStepThree service={service} setService={setService} stepHandler={stepHandler} />
                 }
 
                 {step === 4 &&
-                    <BookingStepFour setFormData={setFormData} formData={formData} />
+                    <>
+                        <BookingStepFour setFormData={setFormData} formData={formData} />
+                        <div className="flex items-center justify-center w-full gap-20 p-5 border-t border-opacity-10 border-neutral-950">
+                            <button onClick={() => stepHandler("-")} className="px-6 py-2 text-black bg-transparent border border-black lg:duration-200 lg:ease-in lg:hover:bg-black lg:hover:text-white lg:hover:border-transparent">Back</button>
+                            <button onClick={() => handleSubmit()} className="px-6 py-3 text-black border bg-golden">Submit</button>
+                        </div>
+                    </>
                 }
 
-                <div className="flex items-center justify-center w-full gap-20 p-5 border-t border-opacity-10 border-neutral-950">
-                    <button onClick={() => stepHandler("-")} className="px-6 py-2 text-black bg-transparent border border-black lg:duration-200 lg:ease-in lg:hover:bg-black lg:hover:text-white lg:hover:border-transparent">Back</button>
-                    {step === 4 ?
-                        <button onClick={() => handleSubmit()} className="px-6 py-3 text-black border bg-golden">Submit</button> :
-                        <button onClick={() => stepHandler("+")} className="px-6 py-3 text-black border bg-golden">Next Step</button>
-                    }
-                </div>
             </div>
         </div>
     );
