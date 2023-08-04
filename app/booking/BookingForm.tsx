@@ -7,7 +7,6 @@ import BookingStepOne from "./BookingStepOne";
 import BookingStepTwo from "./BookingStepTwo";
 import BookingStepThree from "./BookingStepThree";
 import BookingStepFour from "./BookingStepFour";
-import { barberSchema, formSchema, locationSchema, serviceSchema } from "../Validations/FormValidation";
 
 export default function BookingForm() {
     const [step, setStep] = useState(1);
@@ -41,8 +40,6 @@ export default function BookingForm() {
 
     const handleSubmit = async () => {
         try {
-            const isValid = await formSchema.isValid(formData);
-
             const response = await fetch('/api/appointment', {
                 method: 'POST',
                 headers: {
@@ -60,7 +57,11 @@ export default function BookingForm() {
             setService('');
             setFormData({ firstName: "", lastName: "", phoneNumber: "", date: "", time: "" });
         } catch (error) {
-            console.error('Error:', error);
+            if (error instanceof SyntaxError) {
+                console.error('JSON Parsing Error:', error);
+            } else {
+                console.error('Network Error:', error);
+            }
         }
     };
 

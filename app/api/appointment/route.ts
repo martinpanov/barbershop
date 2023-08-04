@@ -1,14 +1,41 @@
 import { createAppointment } from "@/prisma/appointment";
 import { NextResponse } from "next/server";
+import * as yup from 'yup';
 
 export async function POST(request: Request) {
     try {
         const formData = await request.json();
 
+        const validationSchema = yup.object().shape({
+            location: yup.string().required('Location is required'),
+            barberName: yup.string().required('Barber name is required'),
+            service: yup.string().required('Service is required'),
+            firstName: yup.string().required('First name is required'),
+            lastName: yup.string().required('Last name is required'),
+            phoneNumber: yup.string().required('Phone number is required'),
+            date: yup.string().required('Date is required'),
+            time: yup.string().required('Time is required')
+        });
+
+        await validationSchema.validate(formData, { abortEarly: false });
+
         const newAppointment = await createAppointment(formData);
 
         return NextResponse.json({ data: newAppointment }, { status: 200 });
-    } catch (error) {
-        return NextResponse.json({ error: 'Something went wrong' }, { status: 500 });
+    } catch (error: any) {
+        if (error.name === "ValidationError") {
+            const errors = error.inner.reduce(
+                (acc: any, error: any) => ({
+                    ...acc,
+                    [error.path]: error.message,
+                }),
+                {}
+            );
+            return NextResponse.json({ errors }, { status: 400 });
+        } else if (error.name === 'SyntaxError') {
+            return NextResponse.json({ error: error.message }, { status: 400 });
+        }
+
+        return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
