@@ -1,5 +1,7 @@
 import Image from "next/image";
 import BookingForm from "./BookingForm";
+import { useState } from "react";
+import ThankYou from "./ThankYou";
 
 export default function BookingPage() {
     return (
