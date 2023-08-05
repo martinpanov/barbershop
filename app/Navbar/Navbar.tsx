@@ -35,9 +35,6 @@ export default function Navbar() {
                                 <Link href="/saloons">Saloons</Link>
                             </li>
                             <li onClick={() => setOpenMobileNav(false)}>
-                                <Link href="/academy">Academy</Link>
-                            </li>
-                            <li onClick={() => setOpenMobileNav(false)}>
                                 <Link href="/booking">Booking</Link>
                             </li>
                         </ul>
@@ -69,9 +66,6 @@ export default function Navbar() {
                 </li>
                 <li>
                     <Link className="duration-200 ease-in hover:text-golden" href="/saloons">Saloons</Link>
-                </li>
-                <li>
-                    <Link className="duration-200 ease-in hover:text-golden" href="/academy">Academy</Link>
                 </li>
                 <li>
                     <Link className="bg-transparent border border-golden md:py-3.5 md:px-7.5 sm:py-2 sm:px-6 ease-in duration-300 cursor-pointer text-golden hover:bg-golden hover:text-slate-100" href="/booking">Book now</Link>

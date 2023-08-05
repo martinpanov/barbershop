@@ -26,9 +26,6 @@ export default function Footer() {
                         <Link className="duration-200 ease-in hover:text-golden" href="/saloons">Saloons</Link>
                     </li>
                     <li>
-                        <Link className="duration-200 ease-in hover:text-golden" href="/academy">Academy</Link>
-                    </li>
-                    <li>
                         <Link className="duration-200 ease-in hover:text-golden" href="/booking">Book now</Link>
                     </li>
                 </ul>
