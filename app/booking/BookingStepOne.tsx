@@ -18,7 +18,6 @@ export default function BookingStepOne({ location, setLocation, stepHandler }: S
 
     const validateAndNextStep = async () => {
         const isLocationDataValid = await locationSchema.isValid(location);
-        console.log(isLocationDataValid);
 
         if (!isLocationDataValid) {
             return setIsValid(false);

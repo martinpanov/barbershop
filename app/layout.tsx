@@ -5,6 +5,7 @@ import Navbar from './Navbar/Navbar';
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import Footer from './Footer/Footer';
+import { Toaster } from 'react-hot-toast';
 config.autoAddCss = false;
 
 const playFairDisplay = Playfair_Display({
@@ -34,6 +35,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${playFairDisplay.variable} ${roboto.variable}`}>
         <Navbar />
+        <Toaster
+          position="top-right"
+          reverseOrder={true}
+        />
         <main>
           {children}
         </main>

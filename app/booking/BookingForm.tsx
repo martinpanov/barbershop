@@ -8,6 +8,7 @@ import BookingStepTwo from "./BookingStepTwo";
 import BookingStepThree from "./BookingStepThree";
 import BookingStepFour from "./BookingStepFour";
 import ThankYou from "./ThankYou";
+import toast from 'react-hot-toast';
 
 export default function BookingForm() {
     const [step, setStep] = useState(1);
@@ -43,6 +44,8 @@ export default function BookingForm() {
 
     const handleSubmit = async () => {
         try {
+            const loading = toast.loading('Loading...');
+
             const response = await fetch('/api/appointment', {
                 method: 'POST',
                 headers: {
@@ -55,6 +58,10 @@ export default function BookingForm() {
                 throw new Error('Something went wrong, please try again later');
             }
 
+            toast.dismiss(loading);
+
+            toast.success('Your appointment has been made!', { duration: 4000 });
+
             setLocation('');
             setBarberName('');
             setService('');
@@ -62,9 +69,9 @@ export default function BookingForm() {
             setIsSubmitted(true);
         } catch (error) {
             if (error instanceof SyntaxError) {
-                console.error('JSON Parsing Error:', error);
+                toast.error(`JSON Parsing Error: ${error}`, { duration: 4000 });
             } else {
-                console.error('Network Error:', error);
+                toast.error(`Network Error: ${error}`, { duration: 4000 });
             }
         }
     };
