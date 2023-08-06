@@ -55,6 +55,7 @@ export default function BookingForm() {
             });
 
             if (!response.ok) {
+                toast.dismiss(loading);
                 throw new Error('Something went wrong, please try again later');
             }
 

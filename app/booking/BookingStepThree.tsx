@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { serviceSchema } from "../Validations/FormValidation";
+import { toast } from "react-hot-toast";
 
 interface StepThreeProps {
     service: string;
@@ -16,15 +17,14 @@ export default function BookingStepThree({ service, setService, stepHandler }: S
     };
 
     const validateAndNextStep = async () => {
-        const isServiceDataValid = await serviceSchema.isValid(service);
-
-        if (!isServiceDataValid) {
-            return setIsValid(false);
-        } else {
+        try {
+            await serviceSchema.validate(service);
             setIsValid(true);
+            stepHandler("+");
+        } catch (error: any) {
+            toast.error(error.errors[0], { duration: 4000, position: 'top-center' });
+            return setIsValid(false);
         }
-
-        stepHandler("+");
     };
 
     return (
