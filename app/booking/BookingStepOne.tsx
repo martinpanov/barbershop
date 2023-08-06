@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { locationSchema } from "../Validations/FormValidation";
 import { useState } from "react";
+import toast from 'react-hot-toast';
 
 interface StepOneProps {
     location: string;
@@ -17,15 +18,14 @@ export default function BookingStepOne({ location, setLocation, stepHandler }: S
     };
 
     const validateAndNextStep = async () => {
-        const isLocationDataValid = await locationSchema.isValid(location);
-
-        if (!isLocationDataValid) {
-            return setIsValid(false);
-        } else {
+        try {
+            await locationSchema.validate(location);
             setIsValid(true);
+            stepHandler("+");
+        } catch (error: any) {
+            toast.error(error.errors[0], { duration: 4000, position: 'top-center' });
+            return setIsValid(false);
         }
-
-        stepHandler("+");
     };
 
     return (

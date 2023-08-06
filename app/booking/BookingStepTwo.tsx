@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { barberSchema } from "../Validations/FormValidation";
+import { toast } from "react-hot-toast";
 
 interface StepTwoProps {
     barberName: string;
@@ -17,15 +18,14 @@ export default function BookingStepTwo({ barberName, setBarberName, stepHandler 
     };
 
     const validateAndNextStep = async () => {
-        const isBarberDataValid = await barberSchema.isValid(barberName);
-
-        if (!isBarberDataValid) {
-            return setIsValid(false);
-        } else {
+        try {
+            await barberSchema.validate(barberName);
             setIsValid(true);
+            stepHandler("+");
+        } catch (error: any) {
+            toast.error(error.errors[0], { duration: 4000, position: 'top-center' });
+            return setIsValid(false);
         }
-
-        stepHandler("+");
     };
 
 
