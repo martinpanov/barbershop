@@ -1,10 +1,10 @@
 import { prisma } from "@/lib/db/prisma";
 
-export default async function getBarber(barberName: string) {
+export async function getBarber(barberName: string) {
     try {
         const barber = await prisma.barber.findFirst({
             where: {
-                name: barberName
+                name: barberName,
             }
         });
 
@@ -15,6 +15,49 @@ export default async function getBarber(barberName: string) {
         return barber;
     } catch (error: any) {
         error.getBarber = true;
+        throw error;
+    }
+}
+
+export async function updateBarber(barberId: string, madeAppointments: any, date: string, time: string) {
+    try {
+        let newAppointmentsData;
+        if (!madeAppointments) {
+            return await prisma.barber.update({
+                where: {
+                    id: barberId
+                },
+                data: { madeAppointments: { [date]: [time] } }
+            });
+        }
+
+        if (!madeAppointments.hasOwnProperty(date)) {
+            return await prisma.barber.update({
+                where: {
+                    id: barberId
+                },
+                data: { madeAppointments: { ...madeAppointments, [date]: [time] } }
+            });
+        }
+
+        if (madeAppointments.hasOwnProperty(date)) {
+            if (madeAppointments[date].includes(time)) {
+                throw Error;
+            }
+        }
+
+        newAppointmentsData = { ...madeAppointments };
+        newAppointmentsData[date].push(time);
+
+
+        await prisma.barber.update({
+            where: {
+                id: barberId
+            },
+            data: { madeAppointments: newAppointmentsData }
+        });
+    } catch (error: any) {
+        error.updateBarber = true;
         throw error;
     }
 }

@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/db/prisma";
 import { Appointment } from "@prisma/client";
-import getBarber from "./barber";
+import { getBarber, updateBarber } from "./barber";
 
 
 export type FormData = Omit<Appointment, 'id' | 'barberId'> & { barberName: string; };;
@@ -8,6 +8,8 @@ export type FormData = Omit<Appointment, 'id' | 'barberId'> & { barberName: stri
 export async function createAppointment(formData: FormData) {
     try {
         const barber = await getBarber(formData.barberName);
+
+        await updateBarber(barber.id, barber.madeAppointments, formData.date, formData.time);
 
         const appointment = await prisma.appointment.create({
             data: {
@@ -20,6 +22,10 @@ export async function createAppointment(formData: FormData) {
     } catch (error: any) {
         if (error.getBarber) {
             throw new Error("Failed to find Barber");
+        }
+
+        if (error.updateBarber) {
+            throw new Error("Failed to update Barber");
         }
 
         throw new Error('Failed to create appointment');

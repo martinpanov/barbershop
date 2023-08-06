@@ -11,14 +11,16 @@ interface FormData {
 }
 
 interface StepFourProps {
+    barberName: string;
     formData: FormData;
     setFormData: React.Dispatch<React.SetStateAction<FormData>>;
     stepHandler: (data: string) => void;
 }
 
-export default function BookingStepFour({ formData, setFormData, stepHandler }: StepFourProps) {
+export default function BookingStepFour({ barberName, formData, setFormData, stepHandler }: StepFourProps) {
     const [isDatePicked, setIsDatePicked] = useState(false);
     const [isValid, setIsValid] = useState(true);
+    const [freeAppointments, setFreeAppointments] = useState<string[]>([]);
 
     const formatDate = (date: string) => {
         const newDate = new Date(date);
@@ -46,7 +48,7 @@ export default function BookingStepFour({ formData, setFormData, stepHandler }: 
         }
     };
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
 
         setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
@@ -57,10 +59,7 @@ export default function BookingStepFour({ formData, setFormData, stepHandler }: 
             const currentMonth = Number(currentDate[1]);
             const currentDay = Number(currentDate[2].split("T")[0]);
 
-            const inputDate = value.split("-");
-            const inputYear = Number(inputDate[0]);
-            const inputMonth = Number(inputDate[1]);
-            const inputDay = Number(inputDate[2]);
+            const [inputYear, inputMonth, inputDay] = value.split("-").map(Number);
 
             // Doing this to check if the input date is older than today's date
 
@@ -73,10 +72,34 @@ export default function BookingStepFour({ formData, setFormData, stepHandler }: 
             if (currentMonth === inputMonth && currentDay > inputDay) return setIsDatePicked(false);
 
             setIsDatePicked(true);
+
+            try {
+                const loading = toast.loading('Loading...');
+                const response = await fetch('/api/freeappointments', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ barberName, date: value })
+                });
+
+                if (!response.ok) {
+                    toast.dismiss(loading);
+                    throw new Error('Something went wrong, please try again later');
+                }
+
+                const freeAppointmentsData = await response.json();
+
+                toast.dismiss(loading);
+
+                setFreeAppointments(freeAppointmentsData['data']);
+            } catch (error) {
+                toast.error('Something went wrong, please try again later', { duration: 4000 });
+            }
         }
     };
 
-    const handleTimeClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleTimeClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
         const value = event.currentTarget.value;
         setFormData(prevFormData => ({ ...prevFormData, time: value }));
     };
@@ -92,21 +115,13 @@ export default function BookingStepFour({ formData, setFormData, stepHandler }: 
                 <label htmlFor="phoneNumber">Phone Number:</label>
                 <input className={`p-1 mb-3 text-lg ${!isValid ? "border-red-600 border" : ""}`} type="text" id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
                 <label htmlFor="date">Date:</label>
-                <input className={`p-1 mb-3 text-lg ${!isValid ? "border-red-600 border" : ""}`} type="date" id="date" name="date" min={new Date().toISOString().split("T")[0]} value={formData.date} onChange={handleChange} />
+                <input className={`p-1 mb-3 text-lg ${!isValid ? "border-red-600 border" : ""}`} type="date" id="date" name="date" min={new Date().toISOString().split("T")[0]} max={new Date(new Date().setMonth(new Date().getMonth() + 1)).toISOString().split("T")[0]} value={formData.date} onChange={handleChange} />
                 {isDatePicked ?
                     <>
                         <div className="bg-white">
                             <span className="block p-5 text-lg text-center text-black border-b border-opacity-10 border-neutral-950">{formatDate(formData.date)}</span>
                             <div className="grid grid-cols-3 gap-3 p-3">
-                                <button type="button" className={`py-5 bg-slate-100 ${formData.time === "10:00" ? 'border-green-700 border' : null}`} value="10:00" onClick={handleTimeClick}>10:00</button>
-                                <button type="button" className={`py-5 bg-slate-100 ${formData.time === "11:00" ? 'border-green-700 border' : null}`} value="11:00" onClick={handleTimeClick}>11:00</button>
-                                <button type="button" className={`py-5 bg-slate-100 ${formData.time === "12:00" ? 'border-green-700 border' : null}`} value="12:00" onClick={handleTimeClick}>12:00</button>
-                                <button type="button" className={`py-5 bg-slate-100 ${formData.time === "13:00" ? 'border-green-700 border' : null}`} value="13:00" onClick={handleTimeClick}>13:00</button>
-                                <button type="button" className={`py-5 bg-slate-100 ${formData.time === "14:00" ? 'border-green-700 border' : null}`} value="14:00" onClick={handleTimeClick}>14:00</button>
-                                <button type="button" className={`py-5 bg-slate-100 ${formData.time === "15:00" ? 'border-green-700 border' : null}`} value="15:00" onClick={handleTimeClick}>15:00</button>
-                                <button type="button" className={`py-5 bg-slate-100 ${formData.time === "16:00" ? 'border-green-700 border' : null}`} value="16:00" onClick={handleTimeClick}>16:00</button>
-                                <button type="button" className={`py-5 bg-slate-100 ${formData.time === "17:00" ? 'border-green-700 border' : null}`} value="17:00" onClick={handleTimeClick}>17:00</button>
-                                <button type="button" className={`py-5 bg-slate-100 ${formData.time === "18:00" ? 'border-green-700 border' : null}`} value="18:00" onClick={handleTimeClick}>18:00</button>
+                                {freeAppointments.map((freeAppointment) => <button key={freeAppointment} type="button" className={`py-5 bg-slate-100 ${formData.time === freeAppointment ? 'border-green-700 border' : null}`} value={freeAppointment} onClick={handleTimeClick}>{freeAppointment}</button>)}
                             </div>
                         </div>
                     </>

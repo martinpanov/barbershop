@@ -8,9 +8,10 @@ datasource db {
 }
 
 model Barber {
-  id          String        @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  Appointment Appointment[]
+  id               String        @id @default(auto()) @map("_id") @db.ObjectId
+  name             String
+  Appointment      Appointment[]
+  madeAppointments Json?
 
   @@map("barbers")
 }

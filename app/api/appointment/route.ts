@@ -13,7 +13,9 @@ export async function POST(request: Request) {
             firstName: yup.string().required('First name is required'),
             lastName: yup.string().required('Last name is required'),
             phoneNumber: yup.string().required('Phone number is required'),
-            date: yup.string().required('Date is required'),
+            date: yup.date()
+                .min(new Date(), "Date cannot be older than today")
+                .max(new Date(new Date().setMonth(new Date().getMonth() + 1)), "Date cannot be older than one month from today").required('Date is required'),
             time: yup.string().required('Time is required')
         });
 

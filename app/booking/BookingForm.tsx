@@ -56,7 +56,7 @@ export default function BookingForm() {
 
             if (!response.ok) {
                 toast.dismiss(loading);
-                throw new Error('Something went wrong, please try again later');
+                throw Error;
             }
 
             toast.dismiss(loading);
@@ -69,11 +69,7 @@ export default function BookingForm() {
             setFormData({ firstName: "", lastName: "", phoneNumber: "", date: "", time: "" });
             setIsSubmitted(true);
         } catch (error) {
-            if (error instanceof SyntaxError) {
-                toast.error(`JSON Parsing Error: ${error}`, { duration: 4000 });
-            } else {
-                toast.error(`Network Error: ${error}`, { duration: 4000 });
-            }
+            toast.error('Something went wrong, please try again later', { duration: 4000 });
         }
     };
 
@@ -141,7 +137,7 @@ export default function BookingForm() {
                             }
 
                             {step === 4 &&
-                                <BookingStepFour formData={formData} setFormData={setFormData} stepHandler={stepHandler} />
+                                <BookingStepFour barberName={barberName} formData={formData} setFormData={setFormData} stepHandler={stepHandler} />
                             }
 
                             {step === 5 &&
