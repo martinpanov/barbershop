@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { formSchema } from "../Validations/FormValidation";
+import { toast } from "react-hot-toast";
 
 interface FormData {
     firstName: string;
@@ -29,15 +30,20 @@ export default function BookingStepFour({ formData, setFormData, stepHandler }: 
     };
 
     const validateAndNextStep = async () => {
-        const isFormDataValid = await formSchema.isValid(formData);
+        try {
+            await formSchema.validate(formData, { abortEarly: false });
 
-        if (!isFormDataValid) {
-            return setIsValid(false);
-        } else {
             setIsValid(true);
-        }
 
-        stepHandler("+");
+            stepHandler("+");
+        } catch (error: any) {
+            if (error.errors.length > 2) {
+                toast.error('Please fill in the required fields', { duration: 4000, position: 'top-center' });
+                return setIsValid(false);
+            }
+            error.errors.map((error: string) => toast.error(error, { duration: 4000, position: 'top-center' }));
+            return setIsValid(false);
+        }
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,4 +119,4 @@ export default function BookingStepFour({ formData, setFormData, stepHandler }: 
             </form>
         </>
     );
-}
+};
