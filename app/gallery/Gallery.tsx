@@ -95,7 +95,7 @@ export default function Gallery() {
                 }
 
                 {selectedImage &&
-                    <div className="fixed top-0 left-0 z-50 flex flex-col items-center w-full h-[100dvh] bg-black bg-opacity-90">
+                    <div className="fixed inset-0 top-0 left-0 z-50 flex flex-col items-center w-full bg-black bg-opacity-90">
                         <div className="flex items-center justify-between w-full p-6">
                             <span className="flex-1 ml-10 text-2xl text-center md:ml-8">
                                 {images.indexOf(selectedImage) + 1}/{images.length}
