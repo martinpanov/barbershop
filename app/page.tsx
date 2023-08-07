@@ -62,7 +62,7 @@ export default function Home() {
             <section className="relative h-screen">
                 <Image fill={true} src="/hero-img.jpg" alt="hero-image" className="absolute object-cover w-full h-full opacity-50" />
                 <div className="absolute flex flex-col items-center w-4/5 max-w-3xl gap-8 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                    <h1 className="text-3xl italic font-bold text-center sm:text-5xl md:text-6xl font-playfair">Welcome to "Classic Cuts" - Where Style Meets Precision</h1>
+                    <h1 className="text-3xl italic font-bold text-center sm:text-5xl md:text-6xl font-playfair">Welcome to &quot;Classic Cuts&quot; - Where Style Meets Precision</h1>
                     <Link href='/booking' className="px-4 py-3 text-lg bg-golden sm:px-10 sm:py-5 sm:text-xl">Book an appointment</Link>
                 </div>
             </section>
