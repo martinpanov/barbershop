@@ -14,7 +14,7 @@ export default function Navbar() {
             <nav className="absolute z-50 flex items-center justify-between w-full bg-transparent sm:justify-center">
                 {openMobileNav ?
                     <>
-                        <div className="fixed top-0 w-full h-screen bg-black bg-opacity-90">
+                        <div className="fixed top-0 w-full h-[100svh] bg-black bg-opacity-90">
                             <div className="flex items-center justify-end w-full h-28">
                                 <FontAwesomeIcon
                                     icon={faX}
