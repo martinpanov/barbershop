@@ -11,13 +11,16 @@ export default function Gallery() {
         'barber-shaves-side-of-persons-head', 'man-getting-his-beard-trimmed-by-barber',
         'haircut2', 'haircut1', 'man-with-beard-getting-a-trim', 'haircut3', 'haircut5'];
 
-    const [width, setWidth] = useState(window.innerWidth);
+    const [width, setWidth] = useState(0);
     const [selectedImage, setSelectedImage] = useState('');
     const breakpointMidScreen = 768;
     const breakpointLargeScreen = 1024;
 
+    const handleWindowResize = () => setWidth(window.innerWidth);
+
+
     useEffect(() => {
-        const handleWindowResize = () => setWidth(window.innerWidth);
+        handleWindowResize();
         window.addEventListener("resize", handleWindowResize);
         window.addEventListener("keydown", handleKeyDown);
 
@@ -46,10 +49,13 @@ export default function Gallery() {
     };
 
     const handleKeyDown = (event: KeyboardEvent) => {
+        console.log(event.key);
         if (event.key === "ArrowRight") {
             handleNextImage();
         } else if (event.key === "ArrowLeft") {
             handlePreviousImage();
+        } else if (event.key === "Escape") {
+            setSelectedImage('');
         }
     };
 
