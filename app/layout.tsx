@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className='text-white'>
       <body className={`${playFairDisplay.variable} ${roboto.variable}`}>
         <Navbar />
         <Toaster
