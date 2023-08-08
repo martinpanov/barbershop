@@ -32,8 +32,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className='text-white'>
-      <body className={`${playFairDisplay.variable} ${roboto.variable}`}>
+    <html lang="en">
+      <body className={`${playFairDisplay.variable} ${roboto.variable} text-white`}>
         <Navbar />
         <Toaster
           position="top-right"
