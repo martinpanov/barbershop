@@ -1,6 +1,11 @@
 import Image from "next/image";
 import BookingForm from "./BookingForm";
 
+export const metadata = {
+    title: "Booking",
+    description: "Page where you can book an appointment"
+};
+
 export default function BookingPage() {
     return (
         <>

@@ -3,6 +3,11 @@ import { faLocationDot, faClock, faPhoneVolume, faEnvelope } from "@fortawesome/
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
+export const metadata = {
+    title: "Saloons",
+    description: "Page which gives information about the saloons"
+};
+
 export default function SaloonsPage() {
     return (
         <>

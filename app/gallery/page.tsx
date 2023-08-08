@@ -1,6 +1,11 @@
 import Image from "next/image";
 import Gallery from "./Gallery";
 
+export const metadata = {
+    title: "Gallery",
+    description: "Page where you can view different images of haircuts"
+};
+
 export default function GalleryPage() {
     return (
         <>
