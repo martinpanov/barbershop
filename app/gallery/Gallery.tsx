@@ -33,17 +33,58 @@ export default function Gallery() {
             <div className="grid max-w-6xl grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 ">
                 {width < breakpointMidScreen &&
                     <>
-                        {images.map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(image)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
+                        {images
+                            .map((image, index) =>
+                                <Image key={index}
+                                    className="cursor-pointer"
+                                    onClick={() => setSelectedImage(image)}
+                                    quality={100}
+                                    src={`/${image}.jpg`}
+                                    alt={image}
+                                    width={370}
+                                    height={1920}
+                                    sizes="(min-width: 480px) 370px, calc(93.75vw - 61px)"
+                                />
+                            )
+                        }
                     </>
                 }
 
                 {(width >= breakpointMidScreen && width <= breakpointLargeScreen) &&
                     <>
                         <div className="grid gap-5">
-                            {images.slice(0, images.length / 2).map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(image)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
+                            {images.
+                                slice(0, images.length / 2)
+                                .map((image, index) =>
+                                    <Image
+                                        key={index}
+                                        className="cursor-pointer"
+                                        onClick={() => setSelectedImage(image)}
+                                        quality={100}
+                                        src={`/${image}.jpg`}
+                                        alt={image}
+                                        width={300}
+                                        height={1920}
+                                        sizes="(min-width: 480px) 370px, calc(93.75vw - 61px)"
+                                    />
+                                )}
                         </div>
                         <div className="grid gap-5">
-                            {images.slice(images.length / 2, images.length).map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(image)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
+                            {images
+                                .slice(images.length / 2, images.length)
+                                .map((image, index) =>
+                                    <Image
+                                        key={index}
+                                        className="cursor-pointer"
+                                        onClick={() => setSelectedImage(image)}
+                                        quality={100}
+                                        src={`/${image}.jpg`}
+                                        alt={image}
+                                        width={300}
+                                        height={1920}
+                                        sizes="(min-width: 480px) 370px, calc(93.75vw - 61px)"
+                                    />
+                                )}
                         </div>
                     </>
                 }
@@ -51,14 +92,55 @@ export default function Gallery() {
                 {width > breakpointLargeScreen &&
                     <>
                         <div className="grid gap-5">
-                            {images.slice(0, images.length / 3).map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(image)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
+                            {images
+                                .slice(0, images.length / 3)
+                                .map((image, index) =>
+                                    <Image key={index}
+                                        className="cursor-pointer"
+                                        onClick={() => setSelectedImage(image)}
+                                        quality={100}
+                                        src={`/${image}.jpg`}
+                                        alt={image}
+                                        width={370}
+                                        height={1920}
+                                        sizes="(min-width: 480px) 370px, calc(93.75vw - 61px)"
+                                    />
+                                )}
                         </div>
                         <div className="grid gap-5">
-                            {images.slice(images.length / 3, images.length / 1.5).map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(image)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
+                            {images
+                                .slice(images.length / 3, images.length / 1.5)
+                                .map((image, index) =>
+                                    <Image
+                                        key={index}
+                                        className="cursor-pointer"
+                                        onClick={() => setSelectedImage(image)}
+                                        quality={100}
+                                        src={`/${image}.jpg`}
+                                        alt={image}
+                                        width={370}
+                                        height={1920}
+                                        sizes="(min-width: 480px) 370px, calc(93.75vw - 61px)"
+                                    />
+                                )}
 
                         </div>
                         <div className="grid gap-5">
-                            {images.slice(images.length / 1.5, images.length).map((image, index) => <Image key={index} className="cursor-pointer" onClick={() => setSelectedImage(image)} quality={100} src={`/${image}.jpg`} alt={image} width={1280} height={1920} />)}
+                            {images
+                                .slice(images.length / 1.5, images.length)
+                                .map((image, index) =>
+                                    <Image
+                                        key={index}
+                                        className="cursor-pointer"
+                                        onClick={() => setSelectedImage(image)}
+                                        quality={100}
+                                        src={`/${image}.jpg`}
+                                        alt={image}
+                                        width={370}
+                                        height={1920}
+                                        sizes="(min-width: 480px) 370px, calc(93.75vw - 61px)"
+                                    />
+                                )}
                         </div>
                     </>
                 }
