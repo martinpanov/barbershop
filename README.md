@@ -6,7 +6,7 @@ My App consists of both client side rendered components and server side rendered
 
 ### The link to the website is https://barbershop-bar8.vercel.app
 
-![Cars](https://user-images.githubusercontent.com/106311309/230741582-e7f9954e-e37f-45d2-adcf-debcf9d6e8a4.jpg)
+![barbershop-bar8 vercel app_](https://github.com/martinpanov/barbershop/assets/106311309/a23a46ed-50a8-4054-b942-b2c2dec954af)
 
 ## Technology Stack
 
