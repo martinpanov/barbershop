@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import BookBanner from "./BookBanner/BookBanner";
 
 export const metadata = {
     title: "Home",
@@ -60,7 +61,7 @@ export default function Home() {
     return (
         <>
             <section className="relative h-screen">
-                <Image fill={true} src="/hero-img.jpg" alt="hero-image" className="absolute object-cover w-full h-full opacity-50" />
+                <Image quality={100} priority={true} fill={true} src="/hero-img.jpg" alt="hero-image" className="absolute object-cover w-full h-full opacity-50" />
                 <div className="absolute flex flex-col items-center w-4/5 max-w-3xl gap-8 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                     <h1 className="text-3xl italic font-bold text-center sm:text-5xl md:text-6xl font-playfair">Welcome to &quot;Classic Cuts&quot; - Where Style Meets Precision</h1>
                     <Link href='/booking' className="px-4 py-3 text-lg bg-golden sm:px-10 sm:py-5 sm:text-xl">Book an appointment</Link>
@@ -111,14 +112,7 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="relative flex items-center justify-center mt-32 h-96 md:h-[32rem] after:absolute after:top-0 after:left-0 after:bg-golden after:w-full after:h-full after:opacity-50">
-                <Image quality={100} fill={true} src="/barber-accessories.jpg" alt="barber-accessories" className="object-cover" />
-                <div className="absolute z-10 flex flex-col items-center gap-4 text-center">
-                    <h2 className="text-4xl italic font-bold text-center sm:text-5xl font-playfair">Unleash Your Best Look</h2>
-                    <p className="text-lg font-roboto">Expert grooming for your unique style. Redefine yourself with our skilled barbers. Elevate your presence.</p>
-                    <Link href='booking' className="inline-block px-10 py-5 mx-auto my-0 text-lg font-bold bg-transparent border-2 border-white lg:hover:bg-white lg:duration-200 lg:ease-in lg:hover:text-golden">Book an appointment</Link>
-                </div>
-            </section>
+            <BookBanner />
         </>
     );
 }

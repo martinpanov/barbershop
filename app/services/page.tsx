@@ -1,5 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
+import { services } from "../util/services";
+import BookBanner from "../BookBanner/BookBanner";
 
 export const metadata = {
     title: "Services",
@@ -25,43 +26,22 @@ export default function ServicesPage() {
         serviceDetails: 'Discover the art of beard refinement through our meticulous grooming expertise. Our skilled barbers shape, trim, and nourish your beard, creating a polished and stylish look that complements your individuality perfectly.'
     }];
 
-    const priceList = [{
-        name: 'Haircut',
-        price: '$25'
+    const barbers = [{
+        name: 'Michael',
+        experience: 'Junior Barber'
     }, {
-        name: 'Child Haircut',
-        price: '$15'
+        name: 'Josh',
+        experience: 'Master Barber'
     }, {
-        name: 'Haircut For Retiree',
-        price: '$15'
-    }, {
-        name: 'Beard Grooming',
-        price: '$15'
-    }, {
-        name: 'Haircut + Beard Grooming',
-        price: '$35'
-    }, {
-        name: 'Head Massage',
-        price: '$30'
-    }, {
-        name: 'Hair Styling',
-        price: '$20'
-    }, {
-        name: 'Facial Treatment',
-        price: '$40'
-    }, {
-        name: 'Eyebrow Grooming',
-        price: '$10'
-    }, {
-        name: 'Grey Blending',
-        price: '$35'
+        name: 'Mitchel',
+        experience: 'Senior Barber'
     }];
 
     return (
         <>
             <section className="h-[50vh] relative">
                 <h1 className="absolute z-10 text-5xl transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 font-playfair">Services</h1>
-                <Image quality={100} src="/services-hero.jpg" alt="services-hero" width={1280} height={1920} className="object-cover w-full h-full opacity-50" />
+                <Image quality={100} priority={true} fill={true} src="/services-hero.jpg" alt="services-hero" className="object-cover w-full h-full opacity-50" />
             </section>
 
             <section className="flex justify-center px-10 pt-10 pb-32 xl:px-0">
@@ -84,27 +64,15 @@ export default function ServicesPage() {
             <section className="py-10 lg:px-10">
                 <h2 className="mb-20 text-4xl italic font-bold text-center font-playfair"><span className="underline underline-offset-8 decoration-1">Our barb</span>ers</h2>
                 <div className="flex flex-col items-center gap-24 lg:justify-center lg:flex-row font-roboto">
-                    <article className="relative w-80 h-96">
-                        <Image width={360} height={360} src="/barber1.jpg" alt="barber" className="absolute object-cover w-full h-full" />
-                        <div className="absolute bottom-0 left-0 z-10 flex flex-col items-center w-full bg-[#000000db]">
-                            <h3 className="text-xl font-bold">Michael</h3>
-                            <p>Junior Barber</p>
-                        </div>
-                    </article>
-                    <article className="relative w-80 h-96">
-                        <Image width={360} height={360} src="/barber2.jpg" alt="barber" className="absolute object-cover w-full h-full" />
-                        <div className="absolute bottom-0 left-0 z-10 flex flex-col items-center w-full bg-[#000000db]">
-                            <h3 className="text-xl font-bold">Josh</h3>
-                            <p>Master Barber</p>
-                        </div>
-                    </article>
-                    <article className="relative w-80 h-96">
-                        <Image width={360} height={360} src="/barber3.jpg" alt="barber" className="absolute object-cover w-full h-full" />
-                        <div className="absolute bottom-0 left-0 z-10 flex flex-col items-center w-full bg-[#000000db]">
-                            <h3 className="text-xl font-bold">Mitchel</h3>
-                            <p>Senior Barber</p>
-                        </div>
-                    </article>
+                    {barbers.map(({ name, experience }, index) => (
+                        <article key={name} className="relative w-80 h-96">
+                            <Image width={320} height={384} src={`/barber${index + 1}.jpg`} alt="barber" className="absolute object-cover w-full h-full" />
+                            <div className="absolute bottom-0 left-0 z-10 flex flex-col items-center w-full bg-[#000000db]">
+                                <h3 className="text-xl font-bold">{name}</h3>
+                                <p>{experience}</p>
+                            </div>
+                        </article>
+                    ))}
                 </div>
             </section>
 
@@ -118,20 +86,13 @@ export default function ServicesPage() {
                     </div>
                     <div className="px-6 border py-9 border-golden">
                         <ul className="flex flex-col w-full gap-2 text-xl font-bold md:text-2xl lg:text-xl xl:text-2xl">
-                            {priceList.map((service, index) => <li key={index} className="flex after:content-[''] after:mb-1 after:border-b-2 after:border-dotted after:order-1 after:flex-1"><span>{service.name}</span><span className="order-2">{service.price}</span></li>)}
+                            {services.map(({ name, price }) => <li key={name} className="flex after:content-[''] after:mb-1 after:border-b-2 after:border-dotted after:order-1 after:flex-1"><span>{name}</span><span className="order-2">{price}</span></li>)}
                         </ul>
                     </div>
                 </article>
             </section>
 
-            <section className="relative flex items-center justify-center mt-32 h-96 md:h-[32rem] after:absolute after:top-0 after:left-0 after:bg-golden after:w-full after:h-full after:opacity-50">
-                <Image quality={100} fill={true} src="/barber-accessories.jpg" alt="barber-accessories" className="object-cover" />
-                <div className="absolute z-10 flex flex-col items-center gap-4 text-center">
-                    <h2 className="text-4xl italic font-bold text-center sm:text-5xl font-playfair">Unleash Your Best Look</h2>
-                    <p className="text-lg font-roboto">Expert grooming for your unique style. Redefine yourself with our skilled barbers. Elevate your presence.</p>
-                    <Link href='booking' className="inline-block px-10 py-5 mx-auto my-0 text-lg font-bold bg-transparent border-2 border-white lg:hover:bg-white lg:duration-200 lg:ease-in lg:hover:text-golden">Book an appointment</Link>
-                </div>
-            </section>
+            <BookBanner />
         </>
     );
 }

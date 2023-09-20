@@ -106,7 +106,7 @@ export default function BookingStepFour({ barberName, formData, setFormData, ste
 
     return (
         <>
-            <span className="block p-5 text-lg text-black border-b border-opacity-10 border-neutral-950">Enter Your Details</span>
+            <h3 className="block p-5 text-lg text-black border-b border-opacity-10 border-neutral-950">Enter Your Details</h3>
             <form className="flex flex-col p-5 text-lg text-black" onSubmit={(e) => e.preventDefault()}>
                 <label htmlFor="firstName">First Name:</label>
                 <input className={`p-1 mb-3 text-lg ${!isValid ? "border-red-600 border" : ""}`} type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} />

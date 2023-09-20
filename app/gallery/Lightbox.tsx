@@ -98,7 +98,7 @@ export default function Lightbox({ images, selectedImage, setSelectedImage }: Li
                             className="hidden lg:block lg:absolute lg:top-[55%] lg:-translate-y-2/4 lg:-translate-x-2/4 lg:text-white lg:left-[10%] lg:text-4xl lg:cursor-pointer"
                             onClick={handlePreviousImage}
                         />
-                        <Image quality={100} src={`/${selectedImage}.jpg`} alt={selectedImage} width={1280} height={1920} className="object-contain h-full md:w-full w-60 sm:w-96 lg:max-w-lg md:max-w-md" />
+                        <Image quality={100} priority={true} src={`/${selectedImage}.jpg`} alt={selectedImage} width={512} height={844} className="object-contain h-full md:w-full w-60 sm:w-96 lg:max-w-lg md:max-w-md" />
                         <FontAwesomeIcon
                             icon={faArrowRight}
                             className="hidden lg:block lg:absolute lg:top-[55%] lg:-translate-y-2/4 lg:-translate-x-2/4 lg:text-white lg:right-[8%] lg:text-4xl lg:cursor-pointer"

@@ -11,7 +11,7 @@ import ThankYou from "./ThankYou";
 import toast from 'react-hot-toast';
 
 export default function BookingForm() {
-    const [step, setStep] = useState(1);
+    const [currentStep, setCurrentStep] = useState(1);
     const [completedSteps, setCompletedSteps] = useState<number[]>([]);
     const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -22,21 +22,21 @@ export default function BookingForm() {
 
     const stepHandler = async (type: string) => {
         if (type === "+") {
-            setCompletedSteps(prevState => [...prevState, step]);
-            setStep(prevState => prevState + 1);
+            setCompletedSteps(prevState => [...prevState, currentStep]);
+            setCurrentStep(prevState => prevState + 1);
         } else if (type === "-") {
-            if (step - 1 === 0) {
+            if (currentStep - 1 === 0) {
                 return;
             }
 
             setCompletedSteps(prevState =>
-                [...prevState.filter(e => e + 1 !== step)]
+                [...prevState.filter(e => e + 1 !== currentStep)]
             );
 
-            setStep(prevState => prevState - 1);
+            setCurrentStep(prevState => prevState - 1);
 
 
-            if (step - 1 === 1) {
+            if (currentStep - 1 === 1) {
                 setBarberName("");
             }
         }
@@ -74,7 +74,7 @@ export default function BookingForm() {
     };
 
     return (
-        <>
+        <section className="flex items-center justify-center py-10 bg-white lg:py-20">
             {isSubmitted ? <ThankYou /> :
                 <div className="w-11/12 md:max-w-5xl lg:flex font-roboto">
                     <div className="flex flex-col items-center justify-center gap-4 pt-6 pb-8 bg-neutral-800 lg:justify-start lg:px-5 lg:gap-10">
@@ -84,63 +84,41 @@ export default function BookingForm() {
                             </Link>
                         </div>
                         <ul className="hidden lg:flex lg:flex-col lg:gap-7">
-                            <li>
-                                <span className={`mr-2 px-2.5 py-1 rounded-full ${!completedSteps.includes(1) && step !== 1 ? "bg-neutral-600" : ""} ${step === 1 ? "bg-green-400" : ""} ${completedSteps.includes(1) ? "bg-purple-950" : ""}`}>1</span>
-                                <span>Location</span>
-                            </li>
-                            <li>
-                                <span className={`mr-2 px-2.5 py-1 rounded-full ${!completedSteps.includes(2) && step !== 2 ? "bg-neutral-600" : ""} ${step === 2 ? "bg-green-400" : ""} ${completedSteps.includes(2) ? "bg-purple-950" : ""}`}>2</span>
-                                <span>
-                                    Barber
-                                </span>
-                            </li>
-                            <li>
-                                <span className={`mr-2 px-2.5 py-1 rounded-full ${!completedSteps.includes(3) && step !== 3 ? "bg-neutral-600" : ""} ${step === 3 ? "bg-green-400" : ""} ${completedSteps.includes(3) ? "bg-purple-950" : ""}`}>3</span>
-                                <span>
-                                    Services
-                                </span>
-                            </li>
-                            <li>
-                                <span className={`mr-2 px-2.5 py-1 rounded-full ${!completedSteps.includes(4) && step !== 4 ? "bg-neutral-600" : ""} ${step === 4 ? "bg-green-400" : ""} ${completedSteps.includes(4) ? "bg-purple-950" : ""}`}>4</span>
-                                <span>
-                                    Date And Time
-                                </span>
-                            </li>
-                            <li>
-                                <span className={`mr-2 px-2.5 py-1 rounded-full ${!completedSteps.includes(5) && step !== 5 ? "bg-neutral-600" : ""} ${step === 5 ? "bg-green-400" : ""} ${completedSteps.includes(5) ? "bg-purple-950" : ""}`}>5</span>
-                                <span>
-                                    Summary
-                                </span>
-                            </li>
+                            {[{ name: 'Location', step: 1 }, { name: 'Barber', step: 2 }, { name: 'Services', step: 3 },
+                            { name: 'Date And Time', step: 4 }, { name: 'Summary', step: 5 }]
+                                .map(({ name, step }) => (
+                                    <li key={name}>
+                                        <span className={`mr-2 px-2.5 py-1 rounded-full ${!completedSteps.includes(step) && step !== currentStep ? "bg-neutral-600" : ""} ${step === currentStep ? "bg-green-400" : ""} ${completedSteps.includes(step) ? "bg-purple-950" : ""}`}>{step}</span>
+                                        <span>{name}</span>
+                                    </li>
+                                ))}
                         </ul>
 
                         <ul className="flex gap-3 lg:hidden">
-                            <li className={`px-3 py-1 rounded-full ${!completedSteps.includes(1) && step !== 1 ? "bg-neutral-600" : ""} ${step === 1 ? "bg-green-400" : ""} ${completedSteps.includes(1) ? "bg-purple-950" : ""}`}>1</li>
-                            <li className={`px-3 py-1 rounded-full ${!completedSteps.includes(2) && step !== 2 ? "bg-neutral-600" : ""} ${step === 2 ? "bg-green-400" : ""} ${completedSteps.includes(2) ? "bg-purple-950" : ""}`}>2</li>
-                            <li className={`px-3 py-1 rounded-full ${!completedSteps.includes(3) && step !== 3 ? "bg-neutral-600" : ""} ${step === 3 ? "bg-green-400" : ""} ${completedSteps.includes(3) ? "bg-purple-950" : ""}`}>3</li>
-                            <li className={`px-3 py-1 rounded-full ${!completedSteps.includes(4) && step !== 4 ? "bg-neutral-600" : ""} ${step === 4 ? "bg-green-400" : ""} ${completedSteps.includes(4) ? "bg-purple-950" : ""}`}>4</li>
-                            <li className={`px-3 py-1 rounded-full ${!completedSteps.includes(5) && step !== 5 ? "bg-neutral-600" : ""} ${step === 5 ? "bg-green-400" : ""} ${completedSteps.includes(5) ? "bg-purple-950" : ""}`}>5</li>
+                            {[1, 2, 3, 4, 5].map(step => (
+                                <li key={step} className={`px-3 py-1 rounded-full ${!completedSteps.includes(step) && currentStep !== step ? "bg-neutral-600" : ""} ${currentStep === step ? "bg-green-400" : ""} ${completedSteps.includes(step) ? "bg-purple-950" : ""}`}>{step}</li>
+                            ))}
                         </ul>
                     </div>
                     <div className="w-full bg-slate-100">
                         <>
-                            {step === 1 &&
+                            {currentStep === 1 &&
                                 <BookingStepOne location={location} setLocation={setLocation} stepHandler={stepHandler} />
                             }
 
-                            {step === 2 &&
+                            {currentStep === 2 &&
                                 <BookingStepTwo barberName={barberName} setBarberName={setBarberName} stepHandler={stepHandler} />
                             }
 
-                            {step === 3 &&
+                            {currentStep === 3 &&
                                 <BookingStepThree service={service} setService={setService} stepHandler={stepHandler} />
                             }
 
-                            {step === 4 &&
+                            {currentStep === 4 &&
                                 <BookingStepFour barberName={barberName} formData={formData} setFormData={setFormData} stepHandler={stepHandler} />
                             }
 
-                            {step === 5 &&
+                            {currentStep === 5 &&
                                 <>
                                     <span className="block p-5 text-lg text-black border-b border-opacity-10 border-neutral-950">Summary</span>
 
@@ -170,10 +148,9 @@ export default function BookingForm() {
                                 </>
                             }
                         </>
-
                     </div>
                 </div>
             }
-        </>
+        </section>
     );
 }

@@ -42,7 +42,7 @@ export default function Gallery() {
                                     src={`/${image}.jpg`}
                                     alt={image}
                                     width={370}
-                                    height={1920}
+                                    height={660}
                                     sizes="(min-width: 480px) 370px, calc(93.75vw - 61px)"
                                 />
                             )
@@ -64,7 +64,7 @@ export default function Gallery() {
                                         src={`/${image}.jpg`}
                                         alt={image}
                                         width={300}
-                                        height={1920}
+                                        height={535}
                                         sizes="(min-width: 480px) 370px, calc(93.75vw - 61px)"
                                     />
                                 )}
@@ -81,7 +81,7 @@ export default function Gallery() {
                                         src={`/${image}.jpg`}
                                         alt={image}
                                         width={300}
-                                        height={1920}
+                                        height={535}
                                         sizes="(min-width: 480px) 370px, calc(93.75vw - 61px)"
                                     />
                                 )}
@@ -102,7 +102,7 @@ export default function Gallery() {
                                         src={`/${image}.jpg`}
                                         alt={image}
                                         width={370}
-                                        height={1920}
+                                        height={660}
                                         sizes="(min-width: 480px) 370px, calc(93.75vw - 61px)"
                                     />
                                 )}
@@ -119,7 +119,7 @@ export default function Gallery() {
                                         src={`/${image}.jpg`}
                                         alt={image}
                                         width={370}
-                                        height={1920}
+                                        height={660}
                                         sizes="(min-width: 480px) 370px, calc(93.75vw - 61px)"
                                     />
                                 )}
@@ -137,7 +137,7 @@ export default function Gallery() {
                                         src={`/${image}.jpg`}
                                         alt={image}
                                         width={370}
-                                        height={1920}
+                                        height={660}
                                         sizes="(min-width: 480px) 370px, calc(93.75vw - 61px)"
                                     />
                                 )}
