@@ -33,7 +33,7 @@ export default function BookingStepThree({ service, setService, stepHandler }: S
             <h3 className="block p-5 text-lg text-black border-b border-opacity-10 border-neutral-950">Choose Service</h3>
             <div className="grid grid-cols-2 gap-3 p-5">
                 {services.map(({ name, price }) => (
-                    <div key={name} onClick={() => serviceHandler(name)} className={`flex items-center w-full justify-between p-5 lg:cursor-pointer bg-white shadow-xl ${service === "Haircut" ? "border-green-700 border" : ""} ${!isValid ? "border-red-600 border" : ""}`}>
+                    <div key={name} onClick={() => serviceHandler(name)} className={`flex items-center w-full justify-between p-5 lg:cursor-pointer bg-white shadow-xl ${service === name ? "border-green-700 border" : ""} ${!isValid ? "border-red-600 border" : ""}`}>
                         <span className="text-sm text-black sm:text-base">{name}</span>
                         <span className="text-sm text-black sm:text-base">{price}</span>
                     </div>
