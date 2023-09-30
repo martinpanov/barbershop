@@ -41,7 +41,7 @@ export default function ServicesPage() {
         <>
             <section className="h-[50vh] relative">
                 <h1 className="absolute z-10 text-5xl transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 font-playfair">Services</h1>
-                <Image quality={100} priority={true} fill={true} src="/services-hero.jpg" alt="services-hero" className="object-cover w-full h-full opacity-50" />
+                <Image quality={100} priority={true} fill={true} src="/services-hero.webp" alt="services-hero" className="object-cover w-full h-full opacity-50" />
             </section>
 
             <section className="flex justify-center px-10 pt-10 pb-32 xl:px-0">
@@ -66,7 +66,7 @@ export default function ServicesPage() {
                 <div className="flex flex-col items-center gap-24 lg:justify-center lg:flex-row font-roboto">
                     {barbers.map(({ name, experience }, index) => (
                         <article key={name} className="relative w-80 h-96">
-                            <Image width={320} height={384} src={`/barber${index + 1}.jpg`} alt="barber" className="absolute object-cover w-full h-full" />
+                            <Image width={320} height={384} src={`/barber${index + 1}.webp`} alt="barber" className="absolute object-cover w-full h-full" />
                             <div className="absolute bottom-0 left-0 z-10 flex flex-col items-center w-full bg-[#000000db]">
                                 <h3 className="text-xl font-bold">{name}</h3>
                                 <p>{experience}</p>

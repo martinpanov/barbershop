@@ -3,7 +3,7 @@ import { Appointment } from "@prisma/client";
 import { getBarber, updateBarber } from "./barber";
 
 
-export type FormData = Omit<Appointment, 'id' | 'barberId'> & { barberName: string; };;
+export type FormData = Omit<Appointment, 'id' | 'barberId'> & { barberName: string; };
 
 export async function createAppointment(formData: FormData) {
     try {

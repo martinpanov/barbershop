@@ -61,7 +61,7 @@ export default function Home() {
     return (
         <>
             <section className="relative h-screen">
-                <Image quality={100} priority={true} fill={true} src="/hero-img.jpg" alt="hero-image" className="absolute object-cover w-full h-full opacity-50" />
+                <Image quality={100} priority={true} fill={true} src="/hero-img.webp" alt="hero-image" className="absolute object-cover w-full h-full opacity-50" />
                 <div className="absolute flex flex-col items-center w-4/5 max-w-3xl gap-8 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                     <h1 className="text-3xl italic font-bold text-center sm:text-5xl md:text-6xl font-playfair">Welcome to &quot;Classic Cuts&quot; - Where Style Meets Precision</h1>
                     <Link href='/booking' className="px-4 py-3 text-lg bg-golden sm:px-10 sm:py-5 sm:text-xl">Book an appointment</Link>
@@ -94,7 +94,7 @@ export default function Home() {
 
             <section className="flex justify-center py-32 bg-brown">
                 <div className="flex justify-between gap-12 px-10">
-                    <Image quality={100} width={1020} height={384} src="/barber-haircut.jpg" alt="barber-giving-haircut" className="hidden object-cover w-3/5 lg:block" />
+                    <Image quality={100} width={1020} height={384} src="/barber-haircut.webp" alt="barber-giving-haircut" className="hidden object-cover w-3/5 lg:block" />
                     <article className="flex flex-col w-full gap-3">
                         <div className="p-4 bg-golden">
                             <div className="border-2 border-black bg-golden py-7">

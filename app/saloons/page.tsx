@@ -13,7 +13,7 @@ export default function SaloonsPage() {
         <>
             <section className="h-[50vh] relative">
                 <h1 className="absolute z-10 text-5xl transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 font-playfair">Saloons</h1>
-                <Image quality={100} priority={true} fill={true} src="/saloon.jpg" alt="saloon" className="object-cover w-full h-full opacity-50" />
+                <Image quality={100} priority={true} fill={true} src="/saloon.webp" alt="saloon" className="object-cover w-full h-full opacity-50" />
             </section>
             <section className="flex flex-col items-center gap-10 py-10">
                 <h2 className="text-4xl text-center font-playfair md:text-5xl">Classic Cuts Barbershop One</h2>

@@ -39,7 +39,7 @@ export default function Gallery() {
                                     className="cursor-pointer"
                                     onClick={() => setSelectedImage(image)}
                                     quality={100}
-                                    src={`/${image}.jpg`}
+                                    src={`/${image}.webp`}
                                     alt={image}
                                     width={370}
                                     height={660}
@@ -61,7 +61,7 @@ export default function Gallery() {
                                         className="cursor-pointer"
                                         onClick={() => setSelectedImage(image)}
                                         quality={100}
-                                        src={`/${image}.jpg`}
+                                        src={`/${image}.webp`}
                                         alt={image}
                                         width={300}
                                         height={535}
@@ -78,7 +78,7 @@ export default function Gallery() {
                                         className="cursor-pointer"
                                         onClick={() => setSelectedImage(image)}
                                         quality={100}
-                                        src={`/${image}.jpg`}
+                                        src={`/${image}.webp`}
                                         alt={image}
                                         width={300}
                                         height={535}
@@ -99,7 +99,7 @@ export default function Gallery() {
                                         className="cursor-pointer"
                                         onClick={() => setSelectedImage(image)}
                                         quality={100}
-                                        src={`/${image}.jpg`}
+                                        src={`/${image}.webp`}
                                         alt={image}
                                         width={370}
                                         height={660}
@@ -116,7 +116,7 @@ export default function Gallery() {
                                         className="cursor-pointer"
                                         onClick={() => setSelectedImage(image)}
                                         quality={100}
-                                        src={`/${image}.jpg`}
+                                        src={`/${image}.webp`}
                                         alt={image}
                                         width={370}
                                         height={660}
@@ -134,7 +134,7 @@ export default function Gallery() {
                                         className="cursor-pointer"
                                         onClick={() => setSelectedImage(image)}
                                         quality={100}
-                                        src={`/${image}.jpg`}
+                                        src={`/${image}.webp`}
                                         alt={image}
                                         width={370}
                                         height={660}
