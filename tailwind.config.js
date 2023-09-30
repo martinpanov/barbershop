@@ -18,11 +18,11 @@ module.exports = {
         'brown': '#100d0d'
       },
       fontFamily: {
-        'roboto': 'var(--font-roboto)',
-        'playfair': 'var(--font-playfair)'
+        roboto: ['var(--font-roboto)'],
+        playfair: ['var(--font-playfair)']
       }
     },
   },
   important: true,
   plugins: [],
-}
+};
