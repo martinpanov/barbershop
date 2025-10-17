@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  barbershop:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: barbershop-app
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - NODE_ENV=production
+    networks:
+      - shared-network
+    expose:
+      - "3000"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  shared-network:
+    external: true
