@@ -14,6 +14,8 @@
 
 # production
 /build
+.env.production
+nginx/
 
 # misc
 .DS_Store
