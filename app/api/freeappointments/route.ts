@@ -20,6 +20,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ data: freeAppointments }, { status: 200 });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    return NextResponse.json({ error: "Failed to fetch appointments" }, { status: 500 });
   }
 }

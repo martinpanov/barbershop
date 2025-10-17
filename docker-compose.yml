@@ -7,9 +7,8 @@ services:
       dockerfile: Dockerfile
     container_name: barbershop-app
     restart: unless-stopped
-    environment:
-      - DATABASE_URL=${DATABASE_URL}
-      - NODE_ENV=production
+    env_file:
+      - .env.production
     networks:
       - shared-network
     expose:
