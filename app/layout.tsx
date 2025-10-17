@@ -1,31 +1,16 @@
-import './globals.css';
-import type { Metadata } from 'next';
-import { Playfair_Display, Roboto } from 'next/font/google';
-import Navbar from './Navbar/Navbar';
+import "./globals.css";
+import type { Metadata } from "next";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
-import Footer from './Footer/Footer';
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from "@/components/ui/sonner";
+import Navigation from "../components/Navigation";
+import React from "react";
+import Footer from "@/components/Footer";
 config.autoAddCss = false;
 
-const playFairDisplay = Playfair_Display({
-  weight: ['400', '500', '700'],
-  subsets: ['latin'],
-  display: 'swap',
-  style: ['normal', 'italic'],
-  variable: '--font-playfair'
-});
-
-const roboto = Roboto({
-  weight: ['400', '500', '700'],
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-roboto'
-});
-
 export const metadata: Metadata = {
-  title: 'Barbershop',
-  description: 'Barbershop website',
+  title: "Barbershop",
+  description: "Barbershop website",
 };
 
 export default function RootLayout({
@@ -34,16 +19,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${playFairDisplay.variable} ${roboto.variable} text-white`}>
-        <Navbar />
-        <Toaster
-          position="top-right"
-          reverseOrder={true}
-        />
-        <main>
-          {children}
-        </main>
+    <html lang="en" suppressHydrationWarning>
+      <body suppressHydrationWarning>
+        <Navigation />
+        <Toaster />
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
