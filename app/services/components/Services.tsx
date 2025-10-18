@@ -1,4 +1,9 @@
-import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardTitle,
+} from "@/components/ui/card";
 import Image from "next/image";
 
 const serviceArticles = [
@@ -32,7 +37,7 @@ export const Services: React.FC = () => {
   return (
     <section className="flex justify-center px-10 pt-10 pb-32 xl:px-0">
       <div className="flex flex-col gap-11 lg:max-w-7xl">
-        <h2 className="mb-10 text-4xl italic font-bold text-left">
+        <h2 className="mb-10 text-left text-4xl font-bold italic">
           <span className="underline decoration-1 underline-offset-8">
             Our servi
           </span>
@@ -47,11 +52,15 @@ export const Services: React.FC = () => {
                 height={128}
                 src={`/${article.imageName}.png`}
                 alt={article.imageName}
-                className="w-32 h-32"
+                className="h-32 w-32"
               />
               <div className="flex flex-col gap-4 text-center md:text-left">
-                <CardTitle className="text-2xl font-bold">{article.service}</CardTitle>
-                <CardDescription className="text-lg">{article.serviceDetails}</CardDescription>
+                <CardTitle className="text-2xl font-bold">
+                  {article.service}
+                </CardTitle>
+                <CardDescription className="text-lg">
+                  {article.serviceDetails}
+                </CardDescription>
               </div>
             </CardContent>
           </Card>

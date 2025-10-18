@@ -26,22 +26,22 @@ export async function updateBarber(
   time: string
 ) {
   try {
-    let newAppointmentsData;
-
-    if (!madeAppointments.hasOwnProperty(date)) {
+    if (!(date in madeAppointments)) {
       return await prisma.barber.update({
         where: {
           id: barberId,
         },
-        data: { madeAppointments: { ...(madeAppointments || {}), [date]: [time] } },
+        data: {
+          madeAppointments: { ...(madeAppointments || {}), [date]: [time] },
+        },
       });
     }
 
-    if (madeAppointments.hasOwnProperty(date) && madeAppointments[date].includes(time)) {
+    if (date in madeAppointments && madeAppointments[date].includes(time)) {
       throw Error;
     }
 
-    newAppointmentsData = { ...madeAppointments };
+    const newAppointmentsData = { ...madeAppointments };
     newAppointmentsData[date].push(time);
 
     await prisma.barber.update({

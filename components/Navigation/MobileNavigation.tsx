@@ -2,9 +2,18 @@
 
 import { Button } from "@/components/ui/button";
 import { NavigationMenuList } from "@/components/ui/navigation-menu";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { VisuallyHidden } from "@/components/ui/visually-hidden";
-import { NavigationMenu, NavigationMenuItem, NavigationMenuLink } from "@radix-ui/react-navigation-menu";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+} from "@radix-ui/react-navigation-menu";
 import { Menu } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -14,7 +23,7 @@ export const MobileNavigation = () => {
   const [openMobileNav, setOpenMobileNav] = useState(false);
 
   return (
-    <NavigationMenu className="absolute z-50 flex items-center justify-between w-full max-w-full bg-transparent sm:justify-center sm:hidden">
+    <NavigationMenu className="absolute z-50 flex w-full max-w-full items-center justify-between bg-transparent sm:hidden sm:justify-center">
       <NavigationMenuItem>
         <NavigationMenuLink href="/">
           <Image
@@ -35,15 +44,18 @@ export const MobileNavigation = () => {
         </SheetTrigger>
         <SheetContent
           side="right"
-          className="w-full bg-black/90 border-none text-white"
+          className="w-full border-none bg-black/90 text-white"
         >
           <VisuallyHidden>
             <SheetTitle>Navigation Menu</SheetTitle>
           </VisuallyHidden>
-          <NavigationMenuList className="flex flex-col items-center justify-center gap-5 text-3xl mt-20">
+          <NavigationMenuList className="mt-20 flex flex-col items-center justify-center gap-5 text-3xl">
             {menuItems.map((item) => (
               <NavigationMenuItem key={item.href}>
-                <NavigationMenuLink href={item.href} onClick={() => setOpenMobileNav(false)}>
+                <NavigationMenuLink
+                  href={item.href}
+                  onClick={() => setOpenMobileNav(false)}
+                >
                   {item.itemText}
                 </NavigationMenuLink>
               </NavigationMenuItem>

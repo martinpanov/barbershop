@@ -7,17 +7,30 @@ let currentStepValidation: (() => Promise<boolean>) | null = null;
 const today = new Date();
 today.setHours(0, 0, 0, 0);
 
-export const validate = async (schema: any, data: any) => {
+export const validate = async (
+  schema: any,
+  data: any
+): Promise<{ isValid: boolean; fieldErrors: Record<string, boolean> }> => {
   try {
     await schema.validate(data, { abortEarly: false });
-    return true;
+    return { isValid: true, fieldErrors: {} };
   } catch (error: any) {
     if (error.errors?.length > 2) {
       toast.error("Please fill in the required fields", { duration: 4000 });
     } else {
-      error.errors?.forEach((err: string) => toast.error(err, { duration: 4000 }));
+      error.errors?.forEach((err: string) =>
+        toast.error(err, { duration: 4000 })
+      );
     }
-    return false;
+
+    const fieldErrors: Record<string, boolean> = {};
+    error.inner?.forEach((err: any) => {
+      if (err.path) {
+        fieldErrors[err.path] = true;
+      }
+    });
+
+    return { isValid: false, fieldErrors };
   }
 };
 

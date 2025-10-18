@@ -1,7 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "@/components/ui/navigation-menu";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+} from "@/components/ui/navigation-menu";
 import { MobileNavigation } from "./MobileNavigation";
 import { menuItems } from "./constants";
 import { RenderIf } from "../RenderIf";
@@ -10,10 +15,13 @@ import { Button } from "../ui/button";
 export default function Navigation() {
   return (
     <header>
-      <NavigationMenu className="hidden absolute z-10 w-full max-w-full sm:flex sm:items-center sm:justify-center sm:gap-3 sm:text-base md:gap-7 md:text-lg">
+      <NavigationMenu className="absolute z-10 hidden w-full max-w-full sm:flex sm:items-center sm:justify-center sm:gap-3 sm:text-base md:gap-7 md:text-lg">
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuLink href="/" className="hover:bg-transparent focus:bg-transparent">
+            <NavigationMenuLink
+              href="/"
+              className="hover:bg-transparent focus:bg-transparent"
+            >
               <Image
                 width={192}
                 height={144}
@@ -43,6 +51,6 @@ export default function Navigation() {
         </NavigationMenuList>
       </NavigationMenu>
       <MobileNavigation />
-    </header >
+    </header>
   );
 }

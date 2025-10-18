@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <React.Fragment>
       <Header
-        title="Welcome to &quot;Classic Cuts&quot; - Where Style Meets Precision"
+        title='Welcome to "Classic Cuts" - Where Style Meets Precision'
         imageName="hero-img"
         fullScreen
         showButton

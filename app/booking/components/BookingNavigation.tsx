@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "@/components/ui/button";
 import { RenderIf } from "@/components/RenderIf";
 
@@ -21,16 +20,13 @@ export const BookingNavigation: React.FC<BookingNavigationProps> = ({
   const isLastStep = currentStep === totalSteps;
 
   return (
-    <div className="flex items-center justify-center w-full gap-20 p-5 border-t border-opacity-10">
+    <div className="border-opacity-10 flex w-full items-center justify-center gap-20 border-t p-5">
       <RenderIf condition={!isFirstStep}>
         <Button onClick={onBack} variant="outline" size="lg">
           Back
         </Button>
       </RenderIf>
-      <Button
-        onClick={isLastStep ? onSubmit : onNext}
-        size="lg"
-      >
+      <Button onClick={isLastStep ? onSubmit : onNext} size="lg">
         {isLastStep ? "Submit" : "Next"}
       </Button>
     </div>

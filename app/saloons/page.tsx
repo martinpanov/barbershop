@@ -1,11 +1,3 @@
-import Image from "next/image";
-import {
-  faLocationDot,
-  faClock,
-  faPhoneVolume,
-  faEnvelope,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BookBanner from "../../components/BookBanner";
 import React from "react";
 import { Header } from "@/components/Header";

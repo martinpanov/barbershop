@@ -4,7 +4,6 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { Toaster } from "@/components/ui/sonner";
 import Navigation from "../components/Navigation";
-import React from "react";
 import Footer from "@/components/Footer";
 config.autoAddCss = false;
 

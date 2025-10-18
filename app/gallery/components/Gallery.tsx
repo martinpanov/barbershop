@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Lightbox } from "./Lightbox";
 import { RenderIf } from "@/components/RenderIf";
 
@@ -25,11 +25,11 @@ export const Gallery: React.FC = () => {
 
   return (
     <section className="flex justify-center px-10 pt-20 pb-10 xl:px-0">
-      <div className="columns-1 gap-5 max-w-6xl md:columns-2 lg:columns-3">
+      <div className="max-w-6xl columns-1 gap-5 md:columns-2 lg:columns-3">
         {IMAGES.map((image, index) => (
           <Image
             key={index}
-            className="cursor-pointer mb-5 break-inside-avoid"
+            className="mb-5 cursor-pointer break-inside-avoid"
             onClick={() => setSelectedImage(image)}
             quality={100}
             src={`/${image}.webp`}

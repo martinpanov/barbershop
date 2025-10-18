@@ -6,7 +6,13 @@ import {
   faArrowRight,
   faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -29,25 +35,29 @@ export const Lightbox: React.FC<LightboxProps> = ({
   const isFirstImage = currentImageIndex <= 0;
   const isLastImage = currentImageIndex >= images.length - 1;
 
-  const arrowBaseClasses = "hidden lg:absolute lg:top-[55%] lg:block lg:-translate-x-2/4 lg:-translate-y-2/4 lg:text-4xl";
+  const arrowBaseClasses =
+    "hidden lg:absolute lg:top-[55%] lg:block lg:-translate-x-2/4 lg:-translate-y-2/4 lg:text-4xl";
   const getArrowClasses = (isDisabled: boolean) =>
-    cn(arrowBaseClasses, isDisabled ? "lg:opacity-30 lg:cursor-not-allowed" : "lg:cursor-pointer");
+    cn(
+      arrowBaseClasses,
+      isDisabled ? "lg:opacity-30 lg:cursor-not-allowed" : "lg:cursor-pointer"
+    );
 
-  const handlePreviousImage = () => {
+  const handlePreviousImage = useCallback(() => {
     if (isFirstImage) {
       return;
     }
 
     setSelectedImage(images[currentImageIndex - 1]);
-  };
+  }, [isFirstImage, images, currentImageIndex, setSelectedImage]);
 
-  const handleNextImage = () => {
+  const handleNextImage = useCallback(() => {
     if (isLastImage) {
       return;
     }
 
     setSelectedImage(images[currentImageIndex + 1]);
-  };
+  }, [isLastImage, images, currentImageIndex, setSelectedImage]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -72,7 +82,7 @@ export const Lightbox: React.FC<LightboxProps> = ({
       window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
     };
-  }, [currentImageIndex, images, isFirstImage, isLastImage, setSelectedImage]);
+  }, [setSelectedImage, handleNextImage, handlePreviousImage]);
 
   // Preload adjacent images for smoother navigation
   useEffect(() => {
@@ -85,7 +95,6 @@ export const Lightbox: React.FC<LightboxProps> = ({
       nextImage.src = `/${images[currentImageIndex + 1]}.webp`;
     }
   }, [currentImageIndex, images, isFirstImage, isLastImage]);
-
 
   const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     setTouchEnd(null); // otherwise the swipe is fired even with usual touch events
@@ -114,20 +123,20 @@ export const Lightbox: React.FC<LightboxProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 top-0 left-0 z-50 flex flex-col items-center w-full bg-background/90">
-      <div className="flex items-center justify-between w-full p-6">
-        <span className="flex-1 ml-10 text-2xl text-center md:ml-8">
+    <div className="bg-background/90 fixed inset-0 top-0 left-0 z-50 flex w-full flex-col items-center">
+      <div className="flex w-full items-center justify-between p-6">
+        <span className="ml-10 flex-1 text-center text-2xl md:ml-8">
           {currentImageIndex + 1}/{images.length}
         </span>
         <FontAwesomeIcon
           icon={faX}
-          className="ml-auto text-3xl cursor-pointer"
+          className="ml-auto cursor-pointer text-3xl"
           onClick={() => setSelectedImage("")}
         />
       </div>
 
       <div
-        className="flex items-center justify-center w-screen h-full gap-6 select-none lg:gap-52 xl:gap-80"
+        className="flex h-full w-screen items-center justify-center gap-6 select-none lg:gap-52 xl:gap-80"
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
@@ -144,7 +153,7 @@ export const Lightbox: React.FC<LightboxProps> = ({
           alt={selectedImage}
           width={512}
           height={844}
-          className="object-contain w-4/5 h-4/5 lg:max-w-3xl xl:max-w-4xl 2xl:max-w-6xl"
+          className="h-4/5 w-4/5 object-contain lg:max-w-3xl xl:max-w-4xl 2xl:max-w-6xl"
         />
         <FontAwesomeIcon
           icon={faArrowRight}

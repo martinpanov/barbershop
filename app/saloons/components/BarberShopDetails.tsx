@@ -1,4 +1,9 @@
-import { faClock, faEnvelope, faLocationDot, faPhoneVolume } from "@fortawesome/free-solid-svg-icons";
+import {
+  faClock,
+  faEnvelope,
+  faLocationDot,
+  faPhoneVolume,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 
@@ -21,15 +26,14 @@ export const BarberShopDetails: React.FC<BarberShopDetailsProps> = ({
   phoneNumber,
   email,
   iframeUrl,
-  alignment = "flex-row"
+  alignment = "flex-row",
 }) => {
-  const flexDirection = alignment === "flex-row-reverse" ? "lg:flex-row-reverse" : "lg:flex-row";
+  const flexDirection =
+    alignment === "flex-row-reverse" ? "lg:flex-row-reverse" : "lg:flex-row";
 
   return (
     <section className="flex flex-col items-center gap-10 py-10">
-      <h2 className="text-4xl text-center md:text-5xl">
-        {barberShopName}
-      </h2>
+      <h2 className="text-center text-4xl md:text-5xl">{barberShopName}</h2>
       <div className={`flex flex-col items-center gap-10 ${flexDirection}`}>
         <div className="w-80 lg:w-96">
           <Image
@@ -39,7 +43,7 @@ export const BarberShopDetails: React.FC<BarberShopDetailsProps> = ({
             height={255}
             src="/barbershop-one.jpg"
             alt="barbershop-one"
-            className="object-cover w-full h-full"
+            className="h-full w-full object-cover"
           />
         </div>
         <ul className="flex flex-col gap-3 px-4 text-xl">
@@ -51,32 +55,18 @@ export const BarberShopDetails: React.FC<BarberShopDetailsProps> = ({
             {street}
           </li>
           <li>
-            <FontAwesomeIcon
-              icon={faClock}
-              className="text-2xl"
-            />{" "}
-            {workTime}
+            <FontAwesomeIcon icon={faClock} className="text-2xl" /> {workTime}
           </li>
           <li>
-            <FontAwesomeIcon
-              icon={faClock}
-              className="text-2xl"
-            />{" "}
+            <FontAwesomeIcon icon={faClock} className="text-2xl" />{" "}
             {workTimeSunday}
           </li>
           <li>
-            <FontAwesomeIcon
-              icon={faPhoneVolume}
-              className="text-2xl"
-            />{" "}
+            <FontAwesomeIcon icon={faPhoneVolume} className="text-2xl" />{" "}
             {phoneNumber}
           </li>
           <li>
-            <FontAwesomeIcon
-              icon={faEnvelope}
-              className="text-2xl"
-            />{" "}
-            {email}
+            <FontAwesomeIcon icon={faEnvelope} className="text-2xl" /> {email}
           </li>
         </ul>
       </div>

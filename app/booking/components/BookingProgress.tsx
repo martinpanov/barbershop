@@ -14,7 +14,9 @@ type BookingProgressProps = {
   currentStep: number;
 };
 
-export const BookingProgress: React.FC<BookingProgressProps> = ({ currentStep }) => {
+export const BookingProgress: React.FC<BookingProgressProps> = ({
+  currentStep,
+}) => {
   const getStepClasses = (step: number) =>
     cn(
       "rounded-full",
@@ -32,7 +34,7 @@ export const BookingProgress: React.FC<BookingProgressProps> = ({ currentStep })
             height={360}
             src="/logo-2.png"
             alt="logo"
-            className="object-cover w-full h-full"
+            className="h-full w-full object-cover"
           />
         </Link>
       </div>

@@ -1,4 +1,9 @@
-import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardTitle,
+} from "@/components/ui/card";
 import Image from "next/image";
 
 const serviceCards = [
@@ -29,9 +34,9 @@ const serviceCards = [
 
 export const Services: React.FC = () => {
   return (
-    <section className="flex justify-center pt-10 pb-32 bg-primary">
-      <div className="flex flex-col px-10 max-w-7xl gap-11 xl:px-0 xl:grid xl:grid-cols-4 xl:place-items-center">
-        <h2 className="col-span-4 mb-10 text-5xl italic font-bold text-center">
+    <section className="bg-primary flex justify-center pt-10 pb-32">
+      <div className="flex max-w-7xl flex-col gap-11 px-10 xl:grid xl:grid-cols-4 xl:place-items-center xl:px-0">
+        <h2 className="col-span-4 mb-10 text-center text-5xl font-bold italic">
           <span className="md:underline md:decoration-1 md:underline-offset-8">
             Our servi
           </span>
@@ -39,7 +44,7 @@ export const Services: React.FC = () => {
         </h2>
         {serviceCards.map((card) => (
           <Card key={card.service} className="w-full">
-            <CardContent className="flex flex-col gap-3 items-center">
+            <CardContent className="flex flex-col items-center gap-3">
               <Image
                 quality={100}
                 width={86}
@@ -49,7 +54,9 @@ export const Services: React.FC = () => {
                 className="brightness-0 invert"
               />
               <CardTitle className="text-3xl">{card.service}</CardTitle>
-              <CardDescription className="text-center text-lg">{card.serviceDetails}</CardDescription>
+              <CardDescription className="text-center text-lg">
+                {card.serviceDetails}
+              </CardDescription>
             </CardContent>
           </Card>
         ))}

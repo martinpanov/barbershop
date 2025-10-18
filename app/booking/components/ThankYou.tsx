@@ -17,7 +17,7 @@ export const ThankYou: React.FC = () => {
         className="text-7xl text-green-500"
       />
 
-      <h2 className="text-center text-3xl text-black md:text-3xl lg:text-5xl">
+      <h2 className="text-center text-3xl md:text-3xl lg:text-5xl">
         Thank you, we will expect you at the saloon!
       </h2>
     </div>

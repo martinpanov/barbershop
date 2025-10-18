@@ -4,7 +4,12 @@ import { RenderIf } from "../../../components/RenderIf";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { validate, registerValidation, unregisterValidation, formSchema } from "../utils/validation";
+import {
+  validate,
+  registerValidation,
+  unregisterValidation,
+  formSchema,
+} from "../utils/validation";
 import { BookingFormData } from "../types";
 
 type StepFourFormData = Pick<
@@ -25,23 +30,30 @@ export const BookingStepFour: React.FC<StepFourProps> = ({
 }) => {
   const [isDatePicked, setIsDatePicked] = useState(false);
   const [freeAppointments, setFreeAppointments] = useState<string[]>([]);
-  const [hasError, setHasError] = useState(false);
+  const [errors, setErrors] = useState<Record<string, boolean>>({});
+
+  const today = new Date().toISOString().split("T")[0];
+  const oneMonthFromToday = new Date(
+    new Date().setMonth(new Date().getMonth() + 1)
+  )
+    .toISOString()
+    .split("T")[0];
 
   useEffect(() => {
     registerValidation(async () => {
-      const isValid = await validate(formSchema, {
+      const { isValid, fieldErrors } = await validate(formSchema, {
         firstName: formData.firstName,
         lastName: formData.lastName,
         phoneNumber: formData.phoneNumber,
         date: formData.date,
         time: formData.time,
       });
-      setHasError(!isValid);
+      setErrors(fieldErrors);
       return isValid;
     });
 
     return () => unregisterValidation();
-  }, [formData, validate, registerValidation, unregisterValidation]);
+  }, [formData]);
 
   const formatDate = (date: string) => {
     const newDate = new Date(date);
@@ -56,32 +68,15 @@ export const BookingStepFour: React.FC<StepFourProps> = ({
     const { name, value } = event.target;
 
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
-    setHasError(false);
+    setErrors((prev) => ({ ...prev, [name]: false }));
 
     if (name === "date") {
-      const currentDate = new Date().toISOString().split("-");
-      const currentYear = Number(currentDate[0]);
-      const currentMonth = Number(currentDate[1]);
-      const currentDay = Number(currentDate[2].split("T")[0]);
-
-      const [inputYear, inputMonth, inputDay] = value.split("-").map(Number);
-
-      // Doing this to check if the input date is older than today's date
-
-      if (value === "") return setIsDatePicked(false);
-
-      if (currentYear > inputYear) return setIsDatePicked(false);
-
-      if (currentYear === inputYear && currentMonth > inputMonth)
-        return setIsDatePicked(false);
-
-      if (currentMonth === inputMonth && currentDay > inputDay)
-        return setIsDatePicked(false);
-
       setIsDatePicked(true);
 
       try {
-        toast.loading("Loading...", { id: "free-appointments" });
+        toast.loading("Loading available appointments...", {
+          id: "free-appointments",
+        });
         const response = await fetch("/api/freeappointments", {
           method: "POST",
           headers: {
@@ -91,37 +86,32 @@ export const BookingStepFour: React.FC<StepFourProps> = ({
         });
 
         if (!response.ok) {
-          toast.dismiss("free-appointments");
-          throw new Error("Something went wrong, please try again later");
+          const errorData = await response.json();
+          throw new Error(errorData.error);
         }
 
         const freeAppointmentsData = await response.json();
-
-        toast.dismiss("free-appointments");
-
         setFreeAppointments(freeAppointmentsData["data"]);
-      } catch {
-        toast.error("Something went wrong, please try again later", {
-          duration: 4000,
-        });
+      } catch (error) {
+        const message =
+          error instanceof Error
+            ? error.message
+            : "Something went wrong, please try again later";
+
+        toast.error(message, { duration: 4000 });
+      } finally {
+        toast.dismiss("free-appointments");
       }
     }
   };
 
-  const handleTimeClick = async (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    const value = event.currentTarget.value;
-    setFormData((prevFormData) => ({ ...prevFormData, time: value }));
-  };
-
   return (
     <React.Fragment>
-      <h3 className="block p-5 text-lg border-b border-opacity-10">
+      <h3 className="border-opacity-10 block border-b p-5 text-lg">
         Enter Your Details
       </h3>
       <form
-        className="flex flex-col p-5 gap-4"
+        className="flex flex-col gap-4 p-5"
         onSubmit={(e) => e.preventDefault()}
       >
         <div className="space-y-2">
@@ -132,8 +122,7 @@ export const BookingStepFour: React.FC<StepFourProps> = ({
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
-            aria-invalid={hasError}
-            className={hasError ? "border-destructive" : ""}
+            aria-invalid={errors.firstName}
           />
         </div>
         <div className="space-y-2">
@@ -144,8 +133,7 @@ export const BookingStepFour: React.FC<StepFourProps> = ({
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
-            aria-invalid={hasError}
-            className={hasError ? "border-destructive" : ""}
+            aria-invalid={errors.lastName}
           />
         </div>
         <div className="space-y-2">
@@ -156,8 +144,7 @@ export const BookingStepFour: React.FC<StepFourProps> = ({
             name="phoneNumber"
             value={formData.phoneNumber}
             onChange={handleChange}
-            aria-invalid={hasError}
-            className={hasError ? "border-destructive" : ""}
+            aria-invalid={errors.phoneNumber}
           />
         </div>
         <div className="space-y-2">
@@ -166,21 +153,17 @@ export const BookingStepFour: React.FC<StepFourProps> = ({
             type="date"
             id="date"
             name="date"
-            min={new Date().toISOString().split("T")[0]}
-            max={
-              new Date(new Date().setMonth(new Date().getMonth() + 1))
-                .toISOString()
-                .split("T")[0]
-            }
+            min={today}
+            max={oneMonthFromToday}
             value={formData.date}
             onChange={handleChange}
-            aria-invalid={hasError}
-            className={hasError ? "border-destructive" : ""}
+            onClick={(e) => e.currentTarget.showPicker()}
+            aria-invalid={errors.date}
           />
         </div>
         <RenderIf condition={isDatePicked}>
           <div>
-            <span className="block p-5 text-lg text-center border-b border-opacity-10">
+            <span className="border-opacity-10 block border-b p-5 text-center text-lg">
               {formatDate(formData.date)}
             </span>
             <div className="grid grid-cols-3 gap-3 p-3">
@@ -191,8 +174,12 @@ export const BookingStepFour: React.FC<StepFourProps> = ({
                   variant={
                     formData.time === freeAppointment ? "default" : "outline"
                   }
-                  value={freeAppointment}
-                  onClick={handleTimeClick}
+                  onClick={() =>
+                    setFormData((prevFormData) => ({
+                      ...prevFormData,
+                      time: freeAppointment,
+                    }))
+                  }
                 >
                   {freeAppointment}
                 </Button>

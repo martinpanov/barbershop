@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export default function BookBanner() {
   return (
-    <section className="overflow-hidden relative flex items-center justify-center h-[32rem]">
+    <section className="relative flex h-[32rem] items-center justify-center overflow-hidden">
       <Image
         quality={100}
         fill
@@ -21,9 +21,7 @@ export default function BookBanner() {
           skilled barbers. Elevate your presence.
         </p>
         <Button asChild className="p-8 text-xl">
-          <Link href="/booking">
-            Book an appointment
-          </Link>
+          <Link href="/booking">Book an appointment</Link>
         </Button>
       </div>
     </section>

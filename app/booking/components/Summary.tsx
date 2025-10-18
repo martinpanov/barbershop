@@ -1,17 +1,14 @@
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import React from "react";
 
-export const Summary: React.FC<{ formData: any; }> = ({ formData }) => {
+export const Summary: React.FC<{ formData: any }> = ({ formData }) => {
   return (
     <React.Fragment>
-      <span className="block p-5 text-lg text-black border-b border-opacity-10 border-neutral-950">
-        Summary
-      </span>
+      <span className="block border-b p-5 text-lg">Summary</span>
 
       <form
-        className="flex flex-col p-5 gap-4 text-black"
+        className="flex flex-col gap-4 p-5"
         onSubmit={(e) => e.preventDefault()}
       >
         <div className="space-y-2">

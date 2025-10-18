@@ -1,6 +1,10 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { validate, registerValidation, unregisterValidation } from "../utils/validation";
+import {
+  validate,
+  registerValidation,
+  unregisterValidation,
+} from "../utils/validation";
 import { cn } from "@/lib/utils";
 import { RenderIf } from "@/components/RenderIf";
 import type { Schema } from "yup";
@@ -27,13 +31,13 @@ export const BookingStep: React.FC<BookingStepProps> = ({
   selectedValue,
   validationSchema,
   onSelect,
-  className = "grid grid-cols-1 gap-5 p-5"
+  className = "grid grid-cols-1 gap-5 p-5",
 }) => {
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     registerValidation(async () => {
-      const isValid = await validate(validationSchema, selectedValue);
+      const { isValid } = await validate(validationSchema, selectedValue);
       setHasError(!isValid);
       return isValid;
     });
@@ -48,9 +52,7 @@ export const BookingStep: React.FC<BookingStepProps> = ({
 
   return (
     <React.Fragment>
-      <h3 className="block p-5 text-lg border-b border-opacity-10">
-        {title}
-      </h3>
+      <h3 className="border-opacity-10 block border-b p-5 text-lg">{title}</h3>
       <div className={className}>
         {items.map((item) => {
           const label = item.label || item.value;
@@ -60,20 +62,20 @@ export const BookingStep: React.FC<BookingStepProps> = ({
               key={item.value}
               onClick={() => handleSelect(item.value)}
               className={cn(
-                "flex w-full items-center gap-3 p-5 shadow-xl lg:cursor-pointer",
+                "flex w-full items-center gap-3 border border-transparent p-5 shadow-xl lg:cursor-pointer",
                 item.price && "justify-between",
-                selectedValue === item.value && "border border-green-700",
-                hasError && "border border-destructive"
+                selectedValue === item.value && "border-green-700",
+                hasError && "border-destructive"
               )}
             >
               <RenderIf condition={item.image}>
-                <div className="overflow-hidden rounded-full h-14 w-14 sm:h-20 sm:w-20">
+                <div className="h-14 w-14 overflow-hidden rounded-full sm:h-20 sm:w-20">
                   <Image
                     width={360}
                     height={360}
                     src={item.image!}
                     alt={label}
-                    className="object-cover w-full h-full"
+                    className="h-full w-full object-cover"
                   />
                 </div>
               </RenderIf>

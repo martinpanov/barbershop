@@ -8,5 +8,5 @@ export const SERVICES = [
   { value: "Hair Styling", price: "$20" },
   { value: "Facial Treatment", price: "$40" },
   { value: "Eyebrow Grooming", price: "$10" },
-  { value: "Grey Blending", price: "$35" }
+  { value: "Grey Blending", price: "$35" },
 ];

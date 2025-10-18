@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { BookingStepFour } from "./BookingStepFour";
 import { toast } from "sonner";
 import { RenderIf } from "../../../components/RenderIf";
@@ -65,12 +65,17 @@ export default function BookingForm() {
       });
 
       if (!response.ok) {
-        toast.dismiss("appointment-submit");
-        throw Error;
+        const errorData = await response.json();
+
+        if (errorData.errors) {
+          const errorMessages = Object.values(errorData.errors).join(", ");
+          throw new Error(errorMessages);
+        }
+
+        throw new Error(errorData.error);
       }
 
       toast.dismiss("appointment-submit");
-
       toast.success("Your appointment has been made!", { duration: 4000 });
 
       setFormData({
@@ -84,10 +89,15 @@ export default function BookingForm() {
         time: "",
       });
       setIsSubmitted(true);
-    } catch {
-      toast.error("Something went wrong, please try again later", {
-        duration: 4000,
-      });
+    } catch (error) {
+      toast.dismiss("appointment-submit");
+
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Something went wrong, please try again later";
+
+      toast.error(message, { duration: 4000 });
     }
   };
 
@@ -97,10 +107,10 @@ export default function BookingForm() {
         <ThankYou />
       </RenderIf>
       <RenderIf condition={!isSubmitted}>
-        <div className="w-11/12 min-h-[600px] md:max-w-5xl lg:flex border-1 rounded-xl">
+        <div className="min-h-[600px] w-11/12 rounded-xl border-1 md:max-w-5xl lg:flex">
           <BookingProgress currentStep={currentStep} />
-          <div className="flex flex-col w-full">
-            <div className="flex-1 min-h-[400px]">
+          <div className="flex w-full flex-col">
+            <div className="min-h-[400px] flex-1">
               {BOOKING_STEP_CONFIG.map((step) => (
                 <RenderIf key={step.id} condition={currentStep === step.id}>
                   <BookingStep
@@ -109,7 +119,10 @@ export default function BookingForm() {
                     selectedValue={formData[step.formKey]}
                     validationSchema={step.validationSchema}
                     onSelect={(value: string) =>
-                      setFormData((prev) => ({ ...prev, [step.formKey]: value }))
+                      setFormData((prev) => ({
+                        ...prev,
+                        [step.formKey]: value,
+                      }))
                     }
                     className={step.className}
                   />
