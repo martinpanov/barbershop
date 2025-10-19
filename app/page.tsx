@@ -4,8 +4,9 @@ import { Services } from "./components/Services";
 import { Work } from "./components/Work";
 import { PriceList } from "@/components/PriceList";
 import { Header } from "@/components/Header";
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Home",
   description: "Home page",
 };

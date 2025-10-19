@@ -8,11 +8,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const metadata = {
-  title: "Footer",
-  description: "This is the footer of the website",
-};
-
 export default function Footer() {
   return (
     <footer className="flex items-center justify-center px-5 py-10">

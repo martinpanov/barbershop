@@ -2,8 +2,9 @@ import BookBanner from "../../components/BookBanner";
 import React from "react";
 import { Header } from "@/components/Header";
 import { BarberShopDetails } from "./components/BarberShopDetails";
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Saloons",
   description: "Page which gives information about the saloons",
 };
