@@ -1,19 +1,20 @@
 "use client";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faX,
-  faArrowRight,
   faArrowLeft,
+  faArrowRight,
+  faX,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
 import {
   Dispatch,
   SetStateAction,
+  useCallback,
   useEffect,
   useState,
-  useCallback,
 } from "react";
-import Image from "next/image";
+
 import { cn } from "@/lib/utils";
 
 type LightboxProps = {

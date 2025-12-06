@@ -1,13 +1,15 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import type { Schema } from "yup";
+
+import { RenderIf } from "@/components/RenderIf";
+import { cn } from "@/lib/utils";
+
 import {
-  validate,
   registerValidation,
   unregisterValidation,
+  validate,
 } from "../utils/validation";
-import { cn } from "@/lib/utils";
-import { RenderIf } from "@/components/RenderIf";
-import type { Schema } from "yup";
 
 type SelectionItem = {
   value: string;

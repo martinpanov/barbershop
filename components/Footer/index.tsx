@@ -1,12 +1,12 @@
-import Image from "next/image";
-import Link from "next/link";
 import {
-  faLocationDot,
   faClock,
-  faPhoneVolume,
   faEnvelope,
+  faLocationDot,
+  faPhoneVolume,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   return (

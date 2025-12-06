@@ -1,16 +1,18 @@
 "use client";
 
 import Image from "next/image";
+
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { MobileNavigation } from "./MobileNavigation";
-import { menuItems } from "./constants";
+
 import { RenderIf } from "../RenderIf";
 import { Button } from "../ui/button";
+import { menuItems } from "./constants";
+import { MobileNavigation } from "./MobileNavigation";
 
 export default function Navigation() {
   return (

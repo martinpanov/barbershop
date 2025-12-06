@@ -1,10 +1,11 @@
+import Image from "next/image";
+
 import {
   Card,
   CardContent,
   CardDescription,
   CardTitle,
 } from "@/components/ui/card";
-import Image from "next/image";
 
 const serviceCards = [
   {

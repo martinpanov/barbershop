@@ -1,10 +1,13 @@
 import "./globals.css";
-import type { Metadata } from "next";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+
 import { config } from "@fortawesome/fontawesome-svg-core";
-import { Toaster } from "@/components/ui/sonner";
-import Navigation from "../components/Navigation";
+import type { Metadata } from "next";
+
 import Footer from "@/components/Footer";
+import { Toaster } from "@/components/ui/sonner";
+
+import Navigation from "../components/Navigation";
 config.autoAddCss = false;
 
 export const metadata: Metadata = {

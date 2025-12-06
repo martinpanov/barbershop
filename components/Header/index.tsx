@@ -1,7 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
+
 import { RenderIf } from "../RenderIf";
 import { Button } from "../ui/button";
-import Link from "next/link";
 
 type HeaderProps = {
   title: string;

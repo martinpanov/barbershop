@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { RenderIf } from "@/components/RenderIf";
+import { Button } from "@/components/ui/button";
 
 type BookingNavigationProps = {
   currentStep: number;

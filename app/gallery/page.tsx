@@ -1,7 +1,9 @@
-import React from "react";
-import { Header } from "@/components/Header";
-import { Gallery } from "./components/Gallery";
 import { Metadata } from "next";
+import React from "react";
+
+import { Header } from "@/components/Header";
+
+import { Gallery } from "./components/Gallery";
 
 export const metadata: Metadata = {
   title: "Gallery",

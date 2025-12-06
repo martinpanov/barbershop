@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { toast } from "sonner";
-import { RenderIf } from "../../../components/RenderIf";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+
+import { RenderIf } from "../../../components/RenderIf";
+import { BookingFormData } from "../types";
 import {
-  validate,
+  formSchema,
   registerValidation,
   unregisterValidation,
-  formSchema,
+  validate,
 } from "../utils/validation";
-import { BookingFormData } from "../types";
 
 type StepFourFormData = Pick<
   BookingFormData,

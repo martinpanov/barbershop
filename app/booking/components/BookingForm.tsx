@@ -1,17 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { BookingStepFour } from "./BookingStepFour";
 import { toast } from "sonner";
+
 import { RenderIf } from "../../../components/RenderIf";
-import { ThankYou } from "./ThankYou";
-import { BookingNavigation } from "./BookingNavigation";
-import { validateStep } from "../utils/validation";
-import { BookingProgress } from "./BookingProgress";
-import { Summary } from "./Summary";
-import { BookingFormData } from "../types";
-import { BookingStep } from "./BookingStep";
 import { BOOKING_STEP_CONFIG } from "../constants/bookingSteps";
+import { BookingFormData } from "../types";
+import { validateStep } from "../utils/validation";
+import { BookingNavigation } from "./BookingNavigation";
+import { BookingProgress } from "./BookingProgress";
+import { BookingStep } from "./BookingStep";
+import { BookingStepFour } from "./BookingStepFour";
+import { Summary } from "./Summary";
+import { ThankYou } from "./ThankYou";
 
 export default function BookingForm() {
   const [currentStep, setCurrentStep] = useState(1);

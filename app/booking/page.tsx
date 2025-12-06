@@ -1,7 +1,9 @@
-import BookingForm from "./components/BookingForm";
-import React from "react";
-import { Header } from "@/components/Header";
 import { Metadata } from "next";
+import React from "react";
+
+import { Header } from "@/components/Header";
+
+import BookingForm from "./components/BookingForm";
 
 export const metadata: Metadata = {
   title: "Booking",

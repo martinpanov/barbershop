@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { Lightbox } from "./Lightbox";
+
 import { RenderIf } from "@/components/RenderIf";
+
+import { Lightbox } from "./Lightbox";
 
 const IMAGES = [
   "barber-giving-haircut",

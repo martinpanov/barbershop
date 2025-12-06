@@ -1,10 +1,12 @@
-import BookBanner from "../components/BookBanner";
+import { Metadata } from "next";
 import React from "react";
+
+import { Header } from "@/components/Header";
+import { PriceList } from "@/components/PriceList";
+
+import BookBanner from "../components/BookBanner";
 import { Services } from "./components/Services";
 import { Work } from "./components/Work";
-import { PriceList } from "@/components/PriceList";
-import { Header } from "@/components/Header";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Home",

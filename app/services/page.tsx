@@ -1,10 +1,12 @@
+import { Metadata } from "next";
 import React from "react";
-import BookBanner from "../../components/BookBanner";
-import { Services } from "./components/Services";
-import { Barbers } from "./components/Barbers";
+
 import { Header } from "@/components/Header";
 import { PriceList } from "@/components/PriceList";
-import { Metadata } from "next";
+
+import BookBanner from "../../components/BookBanner";
+import { Barbers } from "./components/Barbers";
+import { Services } from "./components/Services";
 
 export const metadata: Metadata = {
   title: "Services",

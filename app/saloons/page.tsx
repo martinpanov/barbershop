@@ -1,8 +1,10 @@
-import BookBanner from "../../components/BookBanner";
-import React from "react";
-import { Header } from "@/components/Header";
-import { BarberShopDetails } from "./components/BarberShopDetails";
 import { Metadata } from "next";
+import React from "react";
+
+import { Header } from "@/components/Header";
+
+import BookBanner from "../../components/BookBanner";
+import { BarberShopDetails } from "./components/BarberShopDetails";
 
 export const metadata: Metadata = {
   title: "Saloons",

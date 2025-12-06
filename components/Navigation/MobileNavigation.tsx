@@ -1,5 +1,14 @@
 "use client";
 
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+} from "@radix-ui/react-navigation-menu";
+import { Menu } from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { NavigationMenuList } from "@/components/ui/navigation-menu";
 import {
@@ -9,14 +18,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@/components/ui/visually-hidden";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-} from "@radix-ui/react-navigation-menu";
-import { Menu } from "lucide-react";
-import Image from "next/image";
-import { useState } from "react";
+
 import { menuItems } from "./constants";
 
 export const MobileNavigation = () => {

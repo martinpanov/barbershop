@@ -1,8 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
+
+import { SERVICES } from "@/app/constants/services";
+
 import { RenderIf } from "../RenderIf";
 import { Button } from "../ui/button";
-import Link from "next/link";
-import { SERVICES } from "@/app/constants/services";
 
 type PriceListProps = {
   showImage?: boolean;
